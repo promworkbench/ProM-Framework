@@ -32,8 +32,8 @@
 	<classpathentry kind="lib" path="stdlib/ProM-Contexts.jar"/>
 	<classpathentry kind="lib" path="stdlib/ProM-Framework.jar"/>
 	<classpathentry kind="lib" path="stdlib/ProM-Models.jar"/>
-	<classpathentry kind="lib" path="stdlib/ProM-Plugins.jar"/>
 	<classpathentry kind="lib" path="stdlib/xstream-1.3.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/jgraph.jar"/>
+	<classpathentry kind="lib" path="stdlib/ProM-Plugins.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
