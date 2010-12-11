@@ -102,9 +102,12 @@
 					</zipfileset>
 				</zip>
 				<copy file="${dist}/${project}.jar" tofile="${release}/${project}.jar" overwrite="true" />
+				<delete includeEmptyDirs="true">
+			    	<fileset dir="${release}/lib" includes="**/*"/>
+			  	</delete>
 				<mkdir dir="${release}/lib"/>
 				<copy todir="${release}/lib" overwrite="true">
-					<fileset dir="${lib}"/>				
+					<fileset dir="${lib}"/>
 				</copy>
 			</sequential>
 		</target>
