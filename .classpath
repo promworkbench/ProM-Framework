@@ -37,5 +37,11 @@
 	<classpathentry kind="lib" path="stdlib/xstream-1.3.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/jgraph.jar"/>
 	<classpathentry kind="lib" path="stdlib/ProM-Plugins.jar"/>
+	<classpathentry kind="lib" path="tests/libs-external/lib-cobertura/asm-3.0.jar"/>
+	<classpathentry kind="lib" path="tests/libs-external/lib-cobertura/asm-tree-3.0.jar"/>
+	<classpathentry kind="lib" path="tests/libs-external/lib-cobertura/jakarta-oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="tests/libs-external/lib-cobertura/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="tests/libs-external/cobertura.jar"/>
+	<classpathentry kind="lib" path="tests/libs-external/junit-4.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

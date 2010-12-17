@@ -23,7 +23,7 @@ public class NewPackageTest extends TestCase {
   }
   
   public static void main(String[] args) {
-    junit.textui.TestRunner.run(UmaTest.class);
+    junit.textui.TestRunner.run(NewPackageTest.class);
   }
   
 }

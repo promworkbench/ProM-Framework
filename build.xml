@@ -53,6 +53,10 @@
 						<include name="**" />
 						<exclude name="test**" />
 					</fileset>
+					<fileset dir="${doc}">
+						<include name="**" />
+						<exclude name="test**" />
+					</fileset>
 					<manifest>
 						<attribute name="Built-By" value="${user.name}" />
 						<attribute name="Specification-Title" value="${project}-@{module}" />
@@ -90,7 +94,7 @@
 		</target>
 
 		<!-- export distribution archive -->
-		<target name="Create downloadable archive" depends="Compile Sources,Create Javadoc">
+		<target name="Create downloadable archive" depends="Compile Sources">
 			<echo message="Building zip file packaging this project" />
 			<sequential>
 				<zip destfile="${release}/${project}-${version}-${os}.zip">
