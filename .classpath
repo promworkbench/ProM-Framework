@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-test"/>
+	<classpathentry kind="src" output="tests/bin-test" path="tests/src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="stdlib/axis.jar"/>
 	<classpathentry kind="lib" path="stdlib/bsh-2.0b4.jar"/>

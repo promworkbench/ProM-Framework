@@ -1,0 +1,12 @@
+print("Starting example script...");
+
+String testFileRoot = System.getProperty("test.testFileRoot", ".");
+
+//----EXAMPLE SCRIPT FOR OPENING LOG-------
+print("1) Opening log file...");
+
+// Use the name of the plugin (in lowercase) to open a log
+
+// org.deckfour.xes.model.XLog log = open_xes_log_file(testFileRoot+"/grouped_a12f0n00.xml");
+// print(" id of the opened log: " + log);
+// junit.framework.Assert.assertNotNull("Log is not null", log);
