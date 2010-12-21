@@ -16,25 +16,26 @@
 		 This Macro compiles the sources is one ${src}-... folder.
 	 The sources are compiled into the ${build} folder.
 		 -->
+
+     <path id="classpath">
+ 			<pathelement path="${build}" />
+ 			<pathelement path="${java.class.path}" />
+ 			<fileset dir=".">
+ 				<include name="lib/**/*.jar" />
+ 				<include name="stdlib/**/*.jar" />
+ 				<include name="packagelib/**/*.jar" />
+ 			</fileset>
+     </path>
+
 		<macrodef name="compile">
 			<sequential>
 				<!-- Compile the java code from ${src}-@{module} into ${build} -->
-				<javac srcdir="${src}" destdir="${build}" nowarn="false" verbose="no" debug="true" debuglevel="lines,vars,source" deprecation="yes" source="1.6" target="1.6">
-					<classpath>
-						<pathelement path="${build}" />
-						<pathelement path="${java.class.path}" />
-						<fileset dir=".">
-							<include name="lib/**/*.jar" />
-							<include name="stdlib/**/*.jar" />
-							<include name="packagelib/**/*.jar" />
-						</fileset>
-					</classpath>
+				<javac srcdir="${src}" classpathref="classpath" destdir="${build}" nowarn="false" verbose="no" debug="true" debuglevel="lines,vars,source" deprecation="yes" source="1.6" target="1.6">
 					<!-- Check for unsafe operations -->
 					<compilerarg value="-Xlint:unchecked" />
 				</javac>
 			</sequential>
 		</macrodef>
-
 
 		<!-- Jar macro
 
@@ -83,7 +84,7 @@
 
 		<!-- create the project's javadoc from all existing sources. Note that only org.processmining.** is included -->
 		<target name="Create Javadoc" description="Generated javadoc">
-			<javadoc packagenames="**" useexternalfile="true" defaultexcludes="yes" destdir="${doc}" author="true" version="true" verbose="false" use="true" windowtitle="${project}">
+			<javadoc packagenames="**" classpathref="classpath" useexternalfile="true" defaultexcludes="yes" destdir="${doc}" author="true" version="true" verbose="false" use="true" windowtitle="${project}">
 				<fileset dir=".">
 					<include name="src/**" />
 					<exclude name="src/test/**" />

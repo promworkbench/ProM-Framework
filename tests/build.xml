@@ -5,7 +5,7 @@
 
 	<!-- location of plugin code, binaries, and test files (can be modified) -->
 	<property name="home" location=".." />
-	<property name="bin" location="${home}/bin" />
+	<property name="bin" location="${home}/bindist" />
 	<property name="src" location="${home}/src" />
 
 	<!-- location of test code, binaries, and test files (can be modified) -->
@@ -14,7 +14,8 @@
 	<property name="dir.testfiles" location="${test.basedir}/testfiles" />
 	
 	<!-- location of test results (can be modified) -->
-	<property name="dir.coveragereport" location="${test.basedir}/cover-html" />
+	<property name="dir.coveragereport.html" location="${test.basedir}/cover-html" />
+	<property name="dir.coveragereport.xml" location="${test.basedir}/cover-xml" />
 
 	<!-- For which classes shall we generate a coverage report?
 	     Define both, source files and compiled classes.                          -->
@@ -119,7 +120,7 @@
 	      <classpath refid="classpath.test"/>
 	    	
 		  <!-- JUnit: set output format -->
-	      <formatter type="plain"/>
+	      <formatter type="xml"/>
 
 	      <!-- JUnit: test cases to run -->
     	  <sysproperty key="test.testFileRoot" path="${dir.testfiles}"/>
@@ -127,10 +128,12 @@
 	    </junit>
 		
 		<!-- Cobertura: generate HTML coverage report -->
-		<cobertura-report destdir="${dir.coveragereport}">
+		<cobertura-report destdir="${dir.coveragereport.html}" format="html">
 		    <fileset refid="src.coveragereport" />
 		</cobertura-report>
-		
+		<cobertura-report destdir="${dir.coveragereport.xml}" format="xml">
+		    <fileset refid="src.coveragereport" />
+		</cobertura-report>		
 	</target>
 
 	<!-- clean build files and intermediate results -->
@@ -143,11 +146,12 @@
 	<target name="svn-clean" depends="clean"
 			description="Remove all results, including test results and coverage reports.">
 		<!-- coverage report -->
-		<delete dir="${dir.coveragereport}" includeemptydirs="true" failonerror="false" />
+		<delete dir="${dir.coveragereport.html}" includeemptydirs="true" failonerror="false" />
+		<delete dir="${dir.coveragereport.xml}" includeemptydirs="true" failonerror="false" />
 		<!-- test reports -->
 		<delete failonerror="false">
 			<fileset dir="${test.basedir}">
-				<include name="TEST-*.txt"/>
+				<include name="TEST-*.xml"/>
 			</fileset>
 		</delete>
 	</target>
