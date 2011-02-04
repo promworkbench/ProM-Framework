@@ -6,7 +6,7 @@
 		<property name="lib" location="lib" />
 		<property name="dist" location="dist" />
 		<property name="release" location="latestrelease" />
-		<property name="version" value="1.0" />
+		<property name="version" value="6.1.0" />
 		<property name="project" value="NewPackage" />
 
 		<!-- Set the os to win32, win64, lin32, lin64, mac, or all -->
@@ -114,6 +114,27 @@
 				<copy todir="${release}/lib" overwrite="true">
 					<fileset dir="${lib}"/>
 				</copy>
+				<echoxml file="${release}/packages.xml">
+					<packages>
+						<package 
+							name="${project}" 
+							version="${version}" 
+							os="all" 
+							url="http://prom.win.tue.nl/ProM/packages/6.1/${project}/${project}-${version}-${os}.zip"
+							desc="New Package (CHANGE)"
+							org="Eindhoven University of Technology" 
+							license="LGPL" 
+							author="Your Name (CHANGE)"
+							auto="false"
+							hasPlugins="true"
+							logo="http://prom.win.tue.nl/ProM/packages/6.1/prom_subtitle_hat_300.png"
+						>
+							<dependency name="Upstream Package 1 (CHANGE)"/>
+							<dependency name="Upstream Package 2 (CHANGE)"/>
+							<dependency name="Upstream Package 3 (CHANGE)"/>
+						</package>
+					</packages>
+				</echoxml>
 			</sequential>
 		</target>
 
