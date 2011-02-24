@@ -121,14 +121,14 @@
 							name="${project}" 
 							version="${version}" 
 							os="all" 
-							url="http://prom.win.tue.nl/ProM/packages/6.1/${project}/${project}-${version}-${os}.zip"
+							url="http://www.promtools.org/prom6/packages/${project}/${project}-${version}-${os}.zip"
 							desc="New Package (CHANGE)"
 							org="Eindhoven University of Technology" 
 							license="LGPL" 
 							author="Your Name (CHANGE)"
 							auto="false"
 							hasPlugins="true"
-							logo="http://prom.win.tue.nl/ProM/packages/6.1/prom_subtitle_hat_300.png"
+							logo="http://www.promtools.org/prom6/packages/prom_subtitle_hat_300.png"
 						>
 							<dependency name="Upstream Package 1 (CHANGE)"/>
 							<dependency name="Upstream Package 2 (CHANGE)"/>
