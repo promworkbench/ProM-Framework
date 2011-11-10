@@ -99,6 +99,9 @@
 		<target name="Create downloadable archive" depends="Compile Sources">
 			<echo message="Building zip file packaging this project" />
 			<sequential>
+				<delete includeEmptyDirs="true" quiet="true">
+			    	<fileset dir="${release}" includes="${project}-*-${os}.zip"/>
+			  	</delete>
 				<zip destfile="${release}/${project}-${version}-${os}.zip">
 					<zipfileset dir="${lib}" prefix="lib">
 						<include name="**" />
