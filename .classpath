@@ -43,5 +43,25 @@
 	<classpathentry kind="lib" path="tests/libs-external/lib-cobertura/log4j-1.2.9.jar"/>
 	<classpathentry kind="lib" path="tests/libs-external/cobertura.jar"/>
 	<classpathentry kind="lib" path="tests/libs-external/junit-4.8.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/EfficientStorage.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-export-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphics2d-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-emf-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-java-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-pdf-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-ps-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-svg-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-swf-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-tests-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-io-2.0.2.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-swing-2.0.3.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-util-2.0.2.jar"/>
+	<classpathentry kind="lib" path="stdlib/freehep-xml-2.1.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/jas-plotter-2.2.jar"/>
+	<classpathentry kind="lib" path="stdlib/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="stdlib/junit-3.8.2.jar"/>
+	<classpathentry kind="lib" path="stdlib/junit-4.8.1.jar"/>
+	<classpathentry kind="lib" path="stdlib/openide-lookup-1.9-patched-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
