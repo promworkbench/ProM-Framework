@@ -17,7 +17,10 @@ import org.processmining.models.YourSecondInput;
 public class YourPlugin {
 
 	/**
-	 * The method that does the heavy lifting for you rplug-in.
+	 * The method that does the heavy lifting for your plug-in.
+	 * 
+	 * Note that this method only uses the boolean which is stored in the configuration.
+	 * Nevertheless, it could have used the integer and/or the String as well.
 	 * 
 	 * @param context The context where to run in.
 	 * @param input1 The first input.
