@@ -31,7 +31,7 @@
 		<macrodef name="compile">
 			<sequential>
 				<!-- Compile the java code from ${src}-@{module} into ${build} -->
-				<javac srcdir="${src}" classpathref="classpath" destdir="${build}" nowarn="false" verbose="no" debug="true" debuglevel="lines,vars,source" deprecation="yes" source="1.6" target="1.6">
+				<javac srcdir="${src}" classpathref="classpath" destdir="${build}" nowarn="false" verbose="no" debug="true" debuglevel="lines,vars,source" deprecation="yes" source="1.7" target="1.7">
 					<!-- Check for unsafe operations -->
 					<compilerarg value="-Xlint:unchecked" />
 				</javac>
