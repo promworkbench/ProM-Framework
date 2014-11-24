@@ -7,7 +7,7 @@
 		<property name="lib" location="lib" />
 		<property name="dist" location="dist" />
 		<property name="release" location="latestrelease" />
-		<property name="version" value="6.1.${env.BUILD_NUMBER}" />
+		<property name="version" value="${major_minor}.${env.BUILD_NUMBER}" />
 		<property name="project" value="NewPackage" />
 
 		<!-- Set the os to win32, win64, lin32, lin64, mac, or all -->
@@ -31,7 +31,7 @@
 		<macrodef name="compile">
 			<sequential>
 				<!-- Compile the java code from ${src}-@{module} into ${build} -->
-				<javac srcdir="${src}" classpathref="classpath" destdir="${build}" nowarn="false" verbose="no" debug="true" debuglevel="lines,vars,source" deprecation="yes" source="1.7" target="1.7">
+				<javac srcdir="${src}" classpathref="classpath" destdir="${build}" nowarn="false" verbose="no" debug="true" debuglevel="lines,vars,source" deprecation="yes" source="${bytecode_format}" target="${bytecode_format}">
 					<!-- Check for unsafe operations -->
 					<compilerarg value="-Xlint:unchecked" />
 				</javac>
