@@ -1,4 +1,4 @@
-package org.processmining.models;
+package org.processmining.newpackage.models;
 
 
 public class YourOutput {

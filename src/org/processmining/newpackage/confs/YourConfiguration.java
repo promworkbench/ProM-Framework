@@ -1,7 +1,7 @@
-package org.processmining.confs;
+package org.processmining.newpackage.confs;
 
-import org.processmining.models.YourFirstInput;
-import org.processmining.models.YourSecondInput;
+import org.processmining.newpackage.models.YourFirstInput;
+import org.processmining.newpackage.models.YourSecondInput;
 
 public class YourConfiguration {
 

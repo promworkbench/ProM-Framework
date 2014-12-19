@@ -1,16 +1,16 @@
-package org.processmining.plugins;
+package org.processmining.newpackage.plugins;
 
 import org.deckfour.uitopia.api.event.TaskListener.InteractionResult;
-import org.processmining.confs.YourConfiguration;
 import org.processmining.contexts.uitopia.UIPluginContext;
 import org.processmining.contexts.uitopia.annotations.UITopiaVariant;
-import org.processmining.dialogs.YourDialog;
 import org.processmining.framework.plugin.PluginContext;
 import org.processmining.framework.plugin.annotations.Plugin;
 import org.processmining.framework.plugin.annotations.PluginVariant;
-import org.processmining.models.YourFirstInput;
-import org.processmining.models.YourOutput;
-import org.processmining.models.YourSecondInput;
+import org.processmining.newpackage.confs.YourConfiguration;
+import org.processmining.newpackage.dialogs.YourDialog;
+import org.processmining.newpackage.models.YourFirstInput;
+import org.processmining.newpackage.models.YourOutput;
+import org.processmining.newpackage.models.YourSecondInput;
 
 @Plugin(name = "Your plug-in name", parameterLabels = { "Name of your first input", "Name of your second input", "Name of your configuration" }, 
 	    returnLabels = { "Name of your output" }, returnTypes = { YourOutput.class })

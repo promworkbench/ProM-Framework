@@ -1,4 +1,4 @@
-package org.processmining.dialogs;
+package org.processmining.newpackage.dialogs;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -10,10 +10,10 @@ import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.processmining.confs.YourConfiguration;
 import org.processmining.contexts.uitopia.UIPluginContext;
-import org.processmining.models.YourFirstInput;
-import org.processmining.models.YourSecondInput;
+import org.processmining.newpackage.confs.YourConfiguration;
+import org.processmining.newpackage.models.YourFirstInput;
+import org.processmining.newpackage.models.YourSecondInput;
 
 public class YourDialog extends JPanel {
 
