@@ -41,7 +41,7 @@ public class YourDialog extends JPanel {
 	 */
 	public YourDialog(UIPluginContext context, YourFirstInput input1, YourSecondInput input2,
 			final YourParameters parameters) {
-		double size[][] = { { TableLayoutConstants.FILL }, { TableLayoutConstants.FILL, TableLayoutConstants.FILL, 30, 30 } };
+		double size[][] = { { TableLayoutConstants.FILL }, { TableLayoutConstants.FILL, 30, 30 } };
 		setLayout(new TableLayout(size));
 		Set<String> values = new HashSet<String>();
 		values.add("Option 1");
