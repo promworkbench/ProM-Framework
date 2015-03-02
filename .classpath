@@ -33,7 +33,6 @@
 	<classpathentry kind="lib" path="stdlib/xstream-1.3.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/jgraph.jar"/>
 	<classpathentry kind="lib" path="stdlib/ProM-Plugins.jar"/>
-	<classpathentry kind="lib" path="stdlib/EfficientStorage.jar"/>
 	<classpathentry kind="lib" path="stdlib/freehep-export-2.1.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/freehep-graphics2d-2.1.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/freehep-graphicsio-2.1.1.jar"/>
@@ -56,5 +55,7 @@
 	<classpathentry kind="lib" path="stdlib/guava-16.0.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/jfreechart-1.0.14.jar"/>
 	<classpathentry kind="lib" path="packagelib/BasicUtils-lib/trove-3.0.3.jar"/>
+	<classpathentry kind="lib" path="packagelib/BasicUtils.jar"/>
+	<classpathentry kind="lib" path="packagelib/Widgets.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

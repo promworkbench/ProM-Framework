@@ -1,61 +1,100 @@
 package org.processmining.newpackage.dialogs;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import info.clearthought.layout.TableLayout;
+import info.clearthought.layout.TableLayoutConstants;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.processmining.contexts.uitopia.UIPluginContext;
-import org.processmining.newpackage.confs.YourConfiguration;
+import org.processmining.framework.util.ui.widgets.ProMList;
 import org.processmining.newpackage.models.YourFirstInput;
 import org.processmining.newpackage.models.YourSecondInput;
+import org.processmining.newpackage.parameters.YourParameters;
+
+import com.fluxicon.slickerbox.components.NiceSlider;
+import com.fluxicon.slickerbox.components.NiceSlider.Orientation;
+import com.fluxicon.slickerbox.factory.SlickerFactory;
 
 public class YourDialog extends JPanel {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3587595452197538653L;
-	@SuppressWarnings("unused")
-	private YourConfiguration configuration;
+	private static final long serialVersionUID = -60087716353524468L;
 
+	/**
+	 * The JPanel that allows the user to set (a subset of) the parameters.
+	 */
 	public YourDialog(UIPluginContext context, YourFirstInput input1, YourSecondInput input2,
-			final YourConfiguration configuration) {
-		this.configuration = configuration;
-		final JCheckBox yourBooleanCheckBox = new JCheckBox("Your boolean: ");
-		yourBooleanCheckBox.setSelected(configuration.isYourBoolean());
-		yourBooleanCheckBox.addChangeListener(new ChangeListener() {
+			final YourParameters parameters) {
+		double size[][] = { { TableLayoutConstants.FILL }, { TableLayoutConstants.FILL, TableLayoutConstants.FILL, 30, 30 } };
+		setLayout(new TableLayout(size));
+		Set<String> values = new HashSet<String>();
+		values.add("Option 1");
+		values.add("Option 2");
+		values.add("Option 3");
+		values.add("Option 4");
+
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		for (String value: values) {
+			listModel.addElement(value);
+		}
+		final ProMList<String> list = new ProMList<String>("Select option", listModel);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		final String defaultValue = "Option 1";
+		list.setSelection(defaultValue);
+		list.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				List<String> selected = list.getSelectedValuesList();
+				if (selected.size() == 1) {
+					parameters.setYourString(selected.get(0));
+				} else {
+					/*
+					 * Nothing selected. Revert to selection of default classifier.
+					 */
+					list.setSelection(defaultValue);
+					parameters.setYourString(defaultValue);
+				}
+			}
+		});
+		list.setPreferredSize(new Dimension(100, 100));
+		add(list, "0, 0");
+		
+		final NiceSlider integerSilder = SlickerFactory.instance().createNiceIntegerSlider("Select number ", -10,
+				10, parameters.getYourInteger(), Orientation.HORIZONTAL);
+		integerSilder.addChangeListener(new ChangeListener() {
+
 			public void stateChanged(ChangeEvent e) {
-				configuration.setYourBoolean(yourBooleanCheckBox.isSelected());
+				parameters.setYourInteger(integerSilder.getSlider().getValue());
 			}
 		});
-		this.add(yourBooleanCheckBox);
-		final JSlider yourIntegerSlider = new JSlider();
-		yourIntegerSlider.setMinimum(configuration.getYourInteger() - 50);
-		yourIntegerSlider.setMaximum(configuration.getYourInteger() + 50);
-		yourIntegerSlider.setValue(configuration.getYourInteger());
-		yourIntegerSlider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				configuration.setYourInteger(yourIntegerSlider.getValue());
+		add(integerSilder, "0, 1");
+
+		final JCheckBox checkBox = SlickerFactory.instance().createCheckBox("Select Yes/No", false);
+		checkBox.setSelected(parameters.isYourBoolean());
+		checkBox.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				parameters.setYourBoolean(checkBox.isSelected());
 			}
+
 		});
-		this.add(yourIntegerSlider);
-		final JTextArea yourStringTextArea = new JTextArea();
-		yourStringTextArea.setText(configuration.getYourString());
-		yourStringTextArea.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-			}
-			public void keyPressed(KeyEvent e) {
-			}
-			public void keyReleased(KeyEvent e) {
-				configuration.setYourString(yourStringTextArea.getText());
-			}
-		});
-		this.add(yourStringTextArea);
+		checkBox.setOpaque(false);
+		checkBox.setPreferredSize(new Dimension(100, 30));
+		add(checkBox, "0, 2");
 	}
 }
