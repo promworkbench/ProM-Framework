@@ -107,7 +107,8 @@
 	    <junit fork="true" dir="${home}" includeantruntime="yes" >
 	    	<!-- parameters to run ProM -->
 	    	<jvmarg value="-ea"/>
-	    	<jvmarg value="-Xmx1G"/>
+	    	<jvmarg value="-Xmx2G"/>
+	    	<jvmarg value="-XX:MaxPermSize=512M"/>
 	    	<jvmarg value="-Djava.library.path=.//lib;.//stdlib;.//packagelib"/>
 	    	<!-- fixed location for cobertura to log method calls and generate report from -->
 	    	<jvmarg value="-Dnet.sourceforge.cobertura.datafile=${cobertura.datafile}"/>
