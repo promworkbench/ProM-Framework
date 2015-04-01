@@ -134,6 +134,7 @@
 							logo="http://www.promtools.org/prom6/packages/prom_subtitle_hat_300.png"
 						>
 							<dependency name="BasicUtils"/>
+							<dependency name="Widgets"/>
 						</package>
 					</packages>
 				</echoxml>
