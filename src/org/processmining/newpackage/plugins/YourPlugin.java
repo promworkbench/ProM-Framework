@@ -12,13 +12,14 @@ import org.processmining.framework.plugin.annotations.PluginVariant;
 import org.processmining.newpackage.algorithms.YourAlgorithm;
 import org.processmining.newpackage.connections.YourConnection;
 import org.processmining.newpackage.dialogs.YourDialog;
+import org.processmining.newpackage.help.YourHelp;
 import org.processmining.newpackage.models.YourFirstInput;
 import org.processmining.newpackage.models.YourOutput;
 import org.processmining.newpackage.models.YourSecondInput;
 import org.processmining.newpackage.parameters.YourParameters;
 
 @Plugin(name = "Your plug-in name", parameterLabels = { "Name of your first input", "Name of your second input", "Name of your parameters" }, 
-	    returnLabels = { "Name of your output" }, returnTypes = { YourOutput.class })
+	    returnLabels = { "Name of your output" }, returnTypes = { YourOutput.class }, help = YourHelp.TEXT)
 public class YourPlugin extends YourAlgorithm {
 
 	/**
