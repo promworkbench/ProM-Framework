@@ -1,0 +1,20 @@
+<ivysettings>
+    <settings defaultResolver="default" />   
+    <resolvers>
+        <url name="prom">
+            <ivy pattern="https://svn.win.tue.nl/repos/[organisation]/Releases/Packages/[module]/[revision]/ivy.xml" />
+            <artifact pattern="https://svn.win.tue.nl/repos/[organisation]/Releases/Packages/[module]/[revision]/[artifact]-[revision].[ext]" />
+        </url>
+        <url name="prom-libs">
+            <ivy pattern="https://svn.win.tue.nl/repos/prom/Libraries/[module]/[revision]/ivy.xml" />
+            <artifact pattern="https://svn.win.tue.nl/repos/prom/Libraries/[module]/[revision]/[artifact]-[revision].[ext]" />
+            <artifact pattern="https://svn.win.tue.nl/repos/prom/Libraries/[module]/[revision]/[artifact]_[revision].[ext]" />
+        </url>
+        <ibiblio name="maven2" m2compatible="true"/>
+        <chain name="default" returnFirst="true">  
+            <resolver ref="prom" />  
+            <resolver ref="prom-libs" />  
+            <resolver ref="maven2" />  
+        </chain>  
+    </resolvers>
+</ivysettings>

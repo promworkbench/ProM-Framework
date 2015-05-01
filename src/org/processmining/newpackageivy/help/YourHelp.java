@@ -1,4 +1,4 @@
-package org.processmining.newpackage.help;
+package org.processmining.newpackageivy.help;
 
 public class YourHelp {
 

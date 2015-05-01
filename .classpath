@@ -54,8 +54,6 @@
 	<classpathentry kind="lib" path="stdlib/commons-math-3.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/guava-16.0.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/jfreechart-1.0.14.jar"/>
-	<classpathentry kind="lib" path="packagelib/BasicUtils-lib/trove-3.0.3.jar"/>
-	<classpathentry kind="lib" path="packagelib/BasicUtils.jar"/>
-	<classpathentry kind="lib" path="packagelib/Widgets.jar"/>
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=NewPackageIvy&amp;ivyXmlPath=ivy.xml&amp;confs=*&amp;ivySettingsPath=ivysettings.xml&amp;loadSettingsOnDemand=false&amp;ivyUserDir=&amp;propertyFiles="/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

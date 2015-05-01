@@ -1,10 +1,10 @@
-package org.processmining.newpackage.algorithms;
+package org.processmining.newpackageivy.algorithms;
 
 import org.processmining.framework.plugin.PluginContext;
-import org.processmining.newpackage.models.YourFirstInput;
-import org.processmining.newpackage.models.YourOutput;
-import org.processmining.newpackage.models.YourSecondInput;
-import org.processmining.newpackage.parameters.YourParameters;
+import org.processmining.newpackageivy.models.YourFirstInput;
+import org.processmining.newpackageivy.models.YourOutput;
+import org.processmining.newpackageivy.models.YourSecondInput;
+import org.processmining.newpackageivy.parameters.YourParameters;
 
 public class YourAlgorithm {
 

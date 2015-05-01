@@ -1,4 +1,4 @@
-<project name="NewPackage" default="Compile Sources" basedir=".">
+<project name="NewPackageIvy" default="Compile Sources" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 		<!-- set global properties for this build -->
 		<property environment="env" />
 		<property name="src" location="src" />
@@ -8,8 +8,16 @@
 		<property name="dist" location="dist" />
 		<property name="release" location="latestrelease" />
 		<property name="version" value="${major_minor}.${env.BUILD_NUMBER}" />
-		<property name="project" value="NewPackage" />
+		<property name="project" value="NewPackageIvy" />
 
+		<property name="author" value="H.M.W. Verbeek" />
+		<property name="organization" value="Eindhoven University of Technology" />
+		<property name="description" value="New Package with Ivy" />
+		<property name="license" value="L-GPL" />
+		<property name="logo" value="http://www.promtools.org/prom6/packages/prom_subtitle_hat_300.png" />
+
+		<property name="ivy.lib.dir" value="ivy" />
+	
 		<!-- Set the os to win32, win64, lin32, lin64, mac, or all -->
 		<property name="os" value="all" />
 
@@ -22,6 +30,7 @@
  			<pathelement path="${build}" />
  			<pathelement path="${java.class.path}" />
  			<fileset dir=".">
+ 				<include name="ivy/**/*.jar" />
  				<include name="lib/**/*.jar" />
  				<include name="stdlib/**/*.jar" />
  				<include name="packagelib/**/*.jar" />
@@ -118,41 +127,46 @@
 				<copy todir="${release}/lib" overwrite="true">
 					<fileset dir="${lib}"/>
 				</copy>
-				<echoxml file="${release}/packages.xml">
-					<packages>
-						<package 
-							name="${project}" 
-							version="${version}" 
-							os="all" 
-							url="http://www.promtools.org/prom6/packages/${project}/${project}-${version}-${os}.zip"
-							desc="New Package (CHANGE)"
-							org="Eindhoven University of Technology" 
-							license="LGPL" 
-							author="Your Name (CHANGE)"
-							auto="false"
-							hasPlugins="true"
-							logo="http://www.promtools.org/prom6/packages/prom_subtitle_hat_300.png"
-						>
-							<dependency name="BasicUtils"/>
-							<dependency name="Widgets"/>
-						</package>
-					</packages>
-				</echoxml>
+				<exec executable="grep">
+					<redirector output="ivypack.xml" />
+					<arg value="&lt;dependency .*org=&quot;prom&quot; " />
+					<arg value="ivy.xml" />
+				</exec>
+				<echo file="${release}/packages.xml">
+					&lt;packages&gt;
+						&lt;package name="${project}" version="${version}" os="${os}" url="http://www.promtools.org/prom6/packages/${project}/${project}-${version}-${os}.zip" desc="${description}" org="${organization}" license="${license}" author="${author}" auto="false" hasPlugins="true" logo="${logo}"&gt;
+				</echo>
+				<concat destfile="${release}/packages.xml" append="true">
+					<filelist files="ivypack.xml" />
+				</concat>
+				<echo file="${release}/packages.xml" append="true">
+						&lt;/package&gt;
+					&lt;/packages&gt;
+				</echo>
+				<copy file="ivy.xml" tofile="${release}/ivy.xml" overwrite="true" />
 			</sequential>
 		</target>
 
-		<target name="Compile Sources">
-			<!-- Create the build directory structure used by compile -->
-			<!-- Create the time stamp -->
-			<tstamp />
-			<mkdir dir="${build}" />
-			<mkdir dir="${dist}" />
-			<echo message="Compiling the sources" />
-			<compile />
-			<echo message="Making jar" />
-			<makejar />
-		</target>
+	<target name="Compile Sources" depends="resolve">
+		<!-- Create the build directory structure used by compile -->
+		<!-- Create the time stamp -->
+		<tstamp />
+		<mkdir dir="${build}" />
+		<mkdir dir="${dist}" />
+		<echo message="Compiling the sources" />
+		<compile />
+		<echo message="Making jar" />
+		<makejar />
+	</target>
 
+	<target name="resolve">
+		<ivy:retrieve />
+		<!--copy todir="lib" overwrite="true">
+			<fileset dir="ivy">
+				<include name="xxx.jar" />
+			</fileset>
+		</copy-->
+	</target>
 
 	</project>
 
