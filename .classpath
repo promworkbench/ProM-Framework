@@ -51,9 +51,9 @@
 	<classpathentry kind="lib" path="stdlib/jdom-1.0.jar"/>
 	<classpathentry kind="lib" path="stdlib/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/openide-lookup-1.9-patched-1.0.jar"/>
-	<classpathentry kind="lib" path="stdlib/commons-math-3.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/guava-16.0.1.jar"/>
 	<classpathentry kind="lib" path="stdlib/jfreechart-1.0.14.jar"/>
 	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=NewPackageIvy&amp;ivyXmlPath=ivy.xml&amp;confs=*&amp;ivySettingsPath=ivysettings.xml&amp;loadSettingsOnDemand=false&amp;ivyUserDir=&amp;propertyFiles="/>
+	<classpathentry kind="lib" path="stdlib/commons-math3-3.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
