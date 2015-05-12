@@ -1,7 +1,7 @@
 <ivysettings>
     <settings defaultResolver="default" />   
     <resolvers>
-        <url name="prom">
+        <url name="prom" checkmodified="true">
             <ivy pattern="https://svn.win.tue.nl/repos/[organisation]/Releases/Packages/[module]/[revision]/ivy.xml" />
             <artifact pattern="https://svn.win.tue.nl/repos/[organisation]/Releases/Packages/[module]/[revision]/[artifact]-[revision].[ext]" />
         </url>
