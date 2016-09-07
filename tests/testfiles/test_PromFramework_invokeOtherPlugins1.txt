@@ -1,3 +1,0 @@
-print("TESTCASE: Invoke Plugins #1");
-result = test_invoke_other_plugins1();
-junit.framework.Assert.assertEquals("Invocation succeeded", "success", result);
