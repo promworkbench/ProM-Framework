@@ -6,7 +6,7 @@
 	<property file="${test.basedir}/test.properties" />
 
 	<!-- location of plugin code, binaries, and test files (can be modified) -->
-	<property name="bin" location="${home}/bin" />
+	<property name="bin" location="${home}/bindist" />
 	<property name="src" location="${home}/src" />
 	
 	<!-- For which classes shall we generate a coverage report?
