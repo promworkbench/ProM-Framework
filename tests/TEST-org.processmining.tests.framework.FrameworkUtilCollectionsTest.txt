@@ -1,19 +1,19 @@
 Testsuite: org.processmining.tests.framework.FrameworkUtilCollectionsTest
-Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.172 sec
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.11 sec
 
-Testcase: test_HashMultiSet_retainAll took 0.031 sec
-Testcase: test_MultiSetIterator took 0.016 sec
-Testcase: test_TreeMultiSet_contains took 0 sec
+Testcase: test_LinkedHashMultiSet_removeAll_Collection took 0.031 sec
+Testcase: test_TreeMultiSet_addAll_Collection took 0 sec
+Testcase: test_LinkedHashMultiSet_retainAll took 0 sec
+Testcase: test_HashMultiSet_addAll_Collection took 0 sec
+Testcase: test_LinkedHashMultiSet_addAll_Collection took 0 sec
+Testcase: test_TreeMultiSet_removeAll_Collection took 0 sec
+Testcase: test_HashMultiSet_removeAll_Collection took 0 sec
+Testcase: test_LinkedHashMultiSet_contains took 0 sec
+Testcase: test_HashMultiSet_retainAll took 0 sec
 Testcase: test_HashMultiSet took 0 sec
+Testcase: test_TreeMultiSet_contains took 0 sec
+Testcase: test_MultiSetIterator took 0.016 sec
+Testcase: test_TreeMultiSet took 0 sec
+Testcase: test_LinkedHashMultiSet took 0 sec
 Testcase: test_HashMultiSet_contains took 0 sec
 Testcase: test_TreeMultiSet_retainAll took 0 sec
-Testcase: test_LinkedHashMultiSet took 0.016 sec
-Testcase: test_TreeMultiSet took 0 sec
-Testcase: test_HashMultiSet_addAll_Collection took 0 sec
-Testcase: test_LinkedHashMultiSet_contains took 0 sec
-Testcase: test_LinkedHashMultiSet_addAll_Collection took 0 sec
-Testcase: test_LinkedHashMultiSet_retainAll took 0 sec
-Testcase: test_TreeMultiSet_addAll_Collection took 0 sec
-Testcase: test_LinkedHashMultiSet_removeAll_Collection took 0 sec
-Testcase: test_HashMultiSet_removeAll_Collection took 0.015 sec
-Testcase: test_TreeMultiSet_removeAll_Collection took 0 sec

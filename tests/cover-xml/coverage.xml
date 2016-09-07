@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.03616520436550396" branch-rate="0.03063063063063063" lines-covered="169" lines-valid="4673" branches-covered="68" branches-valid="2220" complexity="2.2283236994219653" version="2.0.3" timestamp="1473251662357">
+<coverage line-rate="0.03616520436550396" branch-rate="0.03063063063063063" lines-covered="169" lines-valid="4673" branches-covered="68" branches-valid="2220" complexity="2.2283236994219653" version="2.0.3" timestamp="1473252099305">
 	<sources>
 		<source>D:/workspace/ProM-Framework/src</source>
 	</sources>

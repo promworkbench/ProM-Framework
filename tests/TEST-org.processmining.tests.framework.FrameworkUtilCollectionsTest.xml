@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="nbwin950" name="org.processmining.tests.framework.FrameworkUtilCollectionsTest" skipped="0" tests="16" time="0.172" timestamp="2016-09-07T12:34:16">
+<testsuite errors="0" failures="0" hostname="nbwin950" name="org.processmining.tests.framework.FrameworkUtilCollectionsTest" skipped="0" tests="16" time="0.11" timestamp="2016-09-07T12:41:33">
   <properties>
     <property name="java.vendor" value="Oracle Corporation" />
     <property name="dir.coveragereport.xml" value="D:\workspace\ProM-Framework\tests/cover-xml" />
@@ -55,11 +55,11 @@
     <property name="user.script" value="" />
     <property name="user.home" value="C:\Users\hverbeek" />
     <property name="java.specification.vendor" value="Oracle Corporation" />
-    <property name="java.library.path" value=".//lib;.//stdlib;.//packagelib" />
+    <property name="java.library.path" value="C:\Program Files\Java\jre7\bin;C:\windows\Sun\Java\bin;C:\windows\system32;C:\windows;C:\ProgramData\Oracle\Java\javapath;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Skype\Phone\;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell;." />
     <property name="java.vendor.url" value="http://java.oracle.com/" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner org.processmining.tests.framework.FrameworkUtilCollectionsTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\workspace\ProM-Framework\tests\TEST-org.processmining.tests.framework.FrameworkUtilCollectionsTest.xml formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,D:\workspace\ProM-Framework\tests\TEST-org.processmining.tests.framework.FrameworkUtilCollectionsTest.txt crashfile=D:\workspace\ProM-Framework\tests\junitvmwatcher1033110290973796907.properties propsfile=D:\workspace\ProM-Framework\tests\junit5082171756961385131.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner org.processmining.tests.framework.FrameworkUtilCollectionsTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\workspace\ProM-Framework\tests\TEST-org.processmining.tests.framework.FrameworkUtilCollectionsTest.xml formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,D:\workspace\ProM-Framework\tests\TEST-org.processmining.tests.framework.FrameworkUtilCollectionsTest.txt crashfile=D:\workspace\ProM-Framework\tests\junitvmwatcher3651183870082348633.properties propsfile=D:\workspace\ProM-Framework\tests\junit3992462989856664016.properties" />
     <property name="java.class.path" value="D:\workspace\ProM-Framework\tests\bin-test-instrument;D:\workspace\ProM-Framework\tests\libs-external\cobertura-2.0.3.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-analysis-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-commons-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-tree-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-util-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\dom4j-1.6.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\icu4j-2.6.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\jaxen-1.1-beta-8.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\jdom-1.0.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\jetty-6.1.14.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\jetty-util-6.1.14.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\log4j-1.2.9.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\oro-2.0.8.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\servlet-api-2.5-6.1.14.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\tagsoup-0.9.7.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\xmlParserAPIs-2.6.2.jar;D:\workspace\ProM-Framework\tests\libs-external\junit-4.8.1.jar;D:\workspace\ProM-Framework\tests\bin-test;D:\workspace\ProM-Framework\bin;D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-launcher.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-junit.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-junit4.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.6 compiled on June 29 2015" />
     <property name="test.default" value="org/processmining/tests/**/*.java" />
@@ -86,22 +86,22 @@
     <property name="java.specification.version" value="1.7" />
     <property name="ant.project.invoked-targets" value="check" />
   </properties>
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_retainAll" time="0.031" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_MultiSetIterator" time="0.016" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_contains" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_removeAll_Collection" time="0.015" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_addAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_retainAll" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_addAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_addAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_removeAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_removeAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_contains" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_retainAll" time="0.0" />
   <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_contains" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_MultiSetIterator" time="0.016" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet" time="0.0" />
   <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_contains" time="0.0" />
   <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_retainAll" time="0.0" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet" time="0.016" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet" time="0.0" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_addAll_Collection" time="0.0" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_contains" time="0.0" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_addAll_Collection" time="0.0" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_retainAll" time="0.0" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_addAll_Collection" time="0.0" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_removeAll_Collection" time="0.0" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_removeAll_Collection" time="0.015" />
-  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_removeAll_Collection" time="0.0" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

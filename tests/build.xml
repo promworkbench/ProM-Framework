@@ -32,14 +32,13 @@
 		  -->
 		<!-- unconmment these lines if the test shall be run against the local build -->
 		<!-- pathelement location="${bin}"/-->
-		<!--fileset dir="${home}/dist/">
+		<fileset dir="${home}/latestrelease/">
+        	<include name="ProM-Framework.jar"/>
+      	</fileset>
+      	<fileset dir="${home}/ivy">
         	<include name="**/*.jar"/>
       	</fileset>
-      	<fileset dir="${home}/lib/">
-        	<include name="**/*.jar"/>
-      	</fileset-->
 		<pathelement location="${dir.test-bin}" />
-		<pathelement location="${bin}" />
 	</path>
 	
 	<!-- include JUnit to execute unit tests -->
@@ -104,8 +103,9 @@
 	    <junit fork="true" dir="${home}" includeantruntime="yes" >
 	    	<!-- parameters to run ProM -->
 	    	<jvmarg value="-ea"/>
-	    	<jvmarg value="-Xmx1G"/>
-	    	<jvmarg value="-Djava.library.path=.//lib;.//stdlib;.//packagelib"/>
+	    	<jvmarg value="-Xmx2G"/>
+	    	<jvmarg value="-XX:MaxPermSize=256m"/>
+	    	<!--jvmarg value="-Djava.library.path=.//lib;.//stdlib;.//packagelib"/-->
 	    	<!-- fixed location for cobertura to log method calls and generate report from -->
 	    	<jvmarg value="-Dnet.sourceforge.cobertura.datafile=${cobertura.datafile}"/>
 	    	
