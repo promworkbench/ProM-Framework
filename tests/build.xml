@@ -6,28 +6,17 @@
 	<property file="${test.basedir}/test.properties" />
 
 	<!-- location of plugin code, binaries, and test files (can be modified) -->
-	<property name="bin" location="${home}/bindist" />
-	<property name="src-Framework" location="${home}/src-Framework" />
-	<property name="src-Plugins" location="${home}/src-Plugins" />
-	<property name="src-Contexts" location="${home}/src-Contexts" />
-	<property name="src-Models" location="${home}/src-Models" />
+	<property name="bin" location="${home}/bin" />
+	<property name="src" location="${home}/src" />
 	
 	<!-- For which classes shall we generate a coverage report?
 	     Define both, source files and compiled classes.                          -->
-    <fileset id="src.coveragereport-Framework" dir="${src-Framework}">
+    <fileset id="src.coveragereport" dir="${src}">
         <include name="org/processmining/framework/**/*.java" />
-    </fileset>
-    <fileset id="src.coveragereport-Contexts" dir="${src-Contexts}">
-        <include name="org/processmining/contexts/**/*.java" />
-    </fileset>
-    <fileset id="src.coveragereport-Models" dir="${src-Models}">
-        <include name="org/processmining/models/**/*.java" />
     </fileset>
 	<fileset id="classes.coveragereport" dir="${bin}">
 		<!-- create coverage report for ProM plugins (can be modified) -->
         <include name="org/processmining/framework/**/*.class"/>
-		<include name="org/processmining/contexts/**/*.class"/>
-    	<include name="org/processmining/models/**/*.class"/>
 		
 		<!-- do not create coverage report for test environment (DO NOT MODIFY) -->
 	    <!-- exclude name="**/test/*.class"/ -->
@@ -43,13 +32,14 @@
 		  -->
 		<!-- unconmment these lines if the test shall be run against the local build -->
 		<!-- pathelement location="${bin}"/-->
-		<fileset dir="${home}/dist/">
+		<!--fileset dir="${home}/dist/">
         	<include name="**/*.jar"/>
       	</fileset>
       	<fileset dir="${home}/lib/">
         	<include name="**/*.jar"/>
-      	</fileset>
+      	</fileset-->
 		<pathelement location="${dir.test-bin}" />
+		<pathelement location="${bin}" />
 	</path>
 	
 	<!-- include JUnit to execute unit tests -->
@@ -146,15 +136,11 @@
 		
 		<!-- Cobertura: generate HTML coverage report -->
 		<cobertura-report destdir="${dir.coveragereport.html}" format="html">
-			<fileset refid="src.coveragereport-Framework" />
-		    <fileset refid="src.coveragereport-Contexts" />
-			<fileset refid="src.coveragereport-Models" />
+			<fileset refid="src.coveragereport" />
 		</cobertura-report>
 		
 		<cobertura-report destdir="${dir.coveragereport.xml}" format="xml">
-			<fileset refid="src.coveragereport-Framework" />
-		    <fileset refid="src.coveragereport-Contexts" />
-			<fileset refid="src.coveragereport-Models" />
+			<fileset refid="src.coveragereport" />
 		</cobertura-report>		
 		
 	</target>

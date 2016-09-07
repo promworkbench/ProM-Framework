@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="nbwin950" name="org.processmining.tests.framework.FrameworkUtilCollectionsTest" skipped="0" tests="16" time="0.172" timestamp="2016-09-07T12:34:16">
+  <properties>
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="dir.coveragereport.xml" value="D:\workspace\ProM-Framework\tests/cover-xml" />
+    <property name="home" value="D:\workspace\ProM-Framework\tests/.." />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="os.name" value="Windows 8.1" />
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jre7\lib\resources.jar;C:\Program Files\Java\jre7\lib\rt.jar;C:\Program Files\Java\jre7\lib\sunrsasign.jar;C:\Program Files\Java\jre7\lib\jsse.jar;C:\Program Files\Java\jre7\lib\jce.jar;C:\Program Files\Java\jre7\lib\charsets.jar;C:\Program Files\Java\jre7\lib\jfr.jar;C:\Program Files\Java\jre7\classes" />
+    <property name="sun.desktop" value="windows" />
+    <property name="test.basedir" value="D:\workspace\ProM-Framework\tests" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="net.sourceforge.cobertura.datafile" value="D:\workspace\ProM-Framework\tests\cobertura.ser" />
+    <property name="ant.home" value="D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327" />
+    <property name="test.projectname" value="ProM-Framework.test" />
+    <property name="java.runtime.version" value="1.7.0_67-b01" />
+    <property name="test.inclassTestsAt" value="${dir.inclassTests}" />
+    <property name="ant.file.type.${test.projectname}" value="file" />
+    <property name="package.name" value="ProM-Framework" />
+    <property name="user.name" value="HVERBEEK" />
+    <property name="dir.test-instrument" value="D:\workspace\ProM-Framework\tests\bin-test-instrument" />
+    <property name="user.language" value="en" />
+    <property name="cobertura.datafile" value="D:\workspace\ProM-Framework\tests\cobertura.ser" />
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jre7\bin" />
+    <property name="ant.file.${test.projectname}" value="D:\workspace\ProM-Framework\tests\build.xml" />
+    <property name="ant.project.default-target" value="check" />
+    <property name="ant.project.name" value="${test.projectname}" />
+    <property name="java.version" value="1.7.0_67" />
+    <property name="user.timezone" value="" />
+    <property name="bin" value="D:\workspace\ProM-Framework\bin" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="myclasspath" value="D:\workspace\ProM-Framework\tests\libs-external\junit-4.8.1.jar;D:\workspace\ProM-Framework\tests\bin-test;D:\workspace\ProM-Framework\bin" />
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jre7\lib\endorsed" />
+    <property name="sun.cpu.isalist" value="amd64" />
+    <property name="sun.jnu.encoding" value="Cp1252" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="file.separator" value="\" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="51.0" />
+    <property name="src" value="D:\workspace\ProM-Framework\src" />
+    <property name="user.country" value="US" />
+    <property name="java.home" value="C:\Program Files\Java\jre7" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="ant.file" value="D:\workspace\ProM-Framework\tests\build.xml" />
+    <property name="os.version" value="6.3" />
+    <property name="path.separator" value=";" />
+    <property name="dir.coveragereport.html" value="D:\workspace\ProM-Framework\tests/cover-html" />
+    <property name="java.vm.version" value="24.65-b04" />
+    <property name="user.variant" value="" />
+    <property name="ant.library.dir" value="D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="user.script" value="" />
+    <property name="user.home" value="C:\Users\hverbeek" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="java.library.path" value=".//lib;.//stdlib;.//packagelib" />
+    <property name="java.vendor.url" value="http://java.oracle.com/" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner org.processmining.tests.framework.FrameworkUtilCollectionsTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\workspace\ProM-Framework\tests\TEST-org.processmining.tests.framework.FrameworkUtilCollectionsTest.xml formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,D:\workspace\ProM-Framework\tests\TEST-org.processmining.tests.framework.FrameworkUtilCollectionsTest.txt crashfile=D:\workspace\ProM-Framework\tests\junitvmwatcher1033110290973796907.properties propsfile=D:\workspace\ProM-Framework\tests\junit5082171756961385131.properties" />
+    <property name="java.class.path" value="D:\workspace\ProM-Framework\tests\bin-test-instrument;D:\workspace\ProM-Framework\tests\libs-external\cobertura-2.0.3.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-analysis-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-commons-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-tree-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\asm-util-4.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\dom4j-1.6.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\icu4j-2.6.1.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\jaxen-1.1-beta-8.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\jdom-1.0.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\jetty-6.1.14.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\jetty-util-6.1.14.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\log4j-1.2.9.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\oro-2.0.8.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\servlet-api-2.5-6.1.14.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\tagsoup-0.9.7.jar;D:\workspace\ProM-Framework\tests\libs-external\lib-cobertura-2.0.3\xmlParserAPIs-2.6.2.jar;D:\workspace\ProM-Framework\tests\libs-external\junit-4.8.1.jar;D:\workspace\ProM-Framework\tests\bin-test;D:\workspace\ProM-Framework\bin;D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-launcher.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-junit.jar;D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-junit4.jar" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.9.6 compiled on June 29 2015" />
+    <property name="test.default" value="org/processmining/tests/**/*.java" />
+    <property name="test.testScriptRoot" value="D:\workspace\ProM-Framework\tests\${dir.autoscripts}" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="java.vm.specification.version" value="1.7" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.os.patch.level" value="" />
+    <property name="java.io.tmpdir" value="C:\Users\hverbeek\AppData\Local\Temp\" />
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+    <property name="os.arch" value="amd64" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jre7\lib\ext;C:\windows\Sun\Java\lib\ext" />
+    <property name="user.dir" value="D:\workspace\ProM-Framework" />
+    <property name="test.testFileRoot" value="D:\workspace\ProM-Framework\tests\${dir.testfiles}" />
+    <property name="line.separator" value="&#xd;&#xa;" />
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+    <property name="basedir" value="D:\workspace\ProM-Framework\tests" />
+    <property name="dir.test-bin" value="D:\workspace\ProM-Framework\tests/bin-test/" />
+    <property name="ant.java.version" value="1.7" />
+    <property name="ant.core.lib" value="D:\eclipse\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant.jar" />
+    <property name="file.encoding" value="Cp1252" />
+    <property name="dir.test-src" value="D:\workspace\ProM-Framework\tests/src-test/" />
+    <property name="java.specification.version" value="1.7" />
+    <property name="ant.project.invoked-targets" value="check" />
+  </properties>
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_retainAll" time="0.031" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_MultiSetIterator" time="0.016" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_contains" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_contains" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_retainAll" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet" time="0.016" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_addAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_contains" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_addAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_retainAll" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_addAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_LinkedHashMultiSet_removeAll_Collection" time="0.0" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_HashMultiSet_removeAll_Collection" time="0.015" />
+  <testcase classname="org.processmining.tests.framework.FrameworkUtilCollectionsTest" name="test_TreeMultiSet_removeAll_Collection" time="0.0" />
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
