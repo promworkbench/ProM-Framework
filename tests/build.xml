@@ -1,0 +1,186 @@
+<project name="${test.projectname}" default="check">
+	
+	<!-- retrieve basedir of this check script (DO NOT MODIFY) -->
+	<dirname property="test.basedir" file="${ant.file}" />
+
+	<property file="${test.basedir}/test.properties" />
+
+	<!-- location of plugin code, binaries, and test files (can be modified) -->
+	<property name="bin" location="${home}/bindist" />
+	<property name="src-Framework" location="${home}/src-Framework" />
+	<property name="src-Plugins" location="${home}/src-Plugins" />
+	<property name="src-Contexts" location="${home}/src-Contexts" />
+	<property name="src-Models" location="${home}/src-Models" />
+	
+	<!-- For which classes shall we generate a coverage report?
+	     Define both, source files and compiled classes.                          -->
+    <fileset id="src.coveragereport-Framework" dir="${src-Framework}">
+        <include name="org/processmining/framework/**/*.java" />
+    </fileset>
+    <fileset id="src.coveragereport-Contexts" dir="${src-Contexts}">
+        <include name="org/processmining/contexts/**/*.java" />
+    </fileset>
+    <fileset id="src.coveragereport-Models" dir="${src-Models}">
+        <include name="org/processmining/models/**/*.java" />
+    </fileset>
+	<fileset id="classes.coveragereport" dir="${bin}">
+		<!-- create coverage report for ProM plugins (can be modified) -->
+        <include name="org/processmining/framework/**/*.class"/>
+		<include name="org/processmining/contexts/**/*.class"/>
+    	<include name="org/processmining/models/**/*.class"/>
+		
+		<!-- do not create coverage report for test environment (DO NOT MODIFY) -->
+	    <!-- exclude name="**/test/*.class"/ -->
+	</fileset>
+	
+	
+	<!-- ================ NO MODIFICATIONS BELOW THIS LINE NECESSARY ================== -->
+	
+	<!-- include compiled classes, libraries, and test-case files -->
+	<path id="classpath.run">
+		<!--
+		<pathelement location="${dir.test-env-bin}"/>
+		  -->
+		<!-- unconmment these lines if the test shall be run against the local build -->
+		<!-- pathelement location="${bin}"/-->
+		<fileset dir="${home}/dist/">
+        	<include name="**/*.jar"/>
+      	</fileset>
+      	<fileset dir="${home}/lib/">
+        	<include name="**/*.jar"/>
+      	</fileset>
+		<pathelement location="${dir.test-bin}" />
+	</path>
+	
+	<!-- include JUnit to execute unit tests -->
+	<path id="classpath.test">
+		<pathelement location="${test.basedir}/libs-external/junit-4.8.1.jar" />
+		<path refid="classpath.run" />
+  	</path>
+	
+	<!-- definitions for cobertura, to generate code coverage reports -->
+	<path id="classpath.cobertura">
+		<pathelement location="${test.basedir}/libs-external/cobertura-2.0.3.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-4.1.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-analysis-4.1.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-commons-4.1.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-tree-4.1.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-util-4.1.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/dom4j-1.6.1.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/icu4j-2.6.1.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/jaxen-1.1-beta-8.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/jdom-1.0.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/jetty-6.1.14.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/jetty-util-6.1.14.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/log4j-1.2.9.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/oro-2.0.8.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/servlet-api-2.5-6.1.14.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/tagsoup-0.9.7.jar" />
+		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/xmlParserAPIs-2.6.2.jar" />
+  	</path>
+	<!-- load cobertura ant task definition -->
+	<taskdef classpathref="classpath.cobertura" resource="tasks.properties"/>
+		<!-- where to store the instrumented classes -->	
+		<property name="dir.test-instrument" location="${test.basedir}/bin-test-instrument" />
+		<!-- where to store the cobertura logging information -->		
+		<property name="cobertura.datafile" location="${test.basedir}/cobertura.ser" />
+
+	<!-- instrument all classes specified in classes.coveragereport -->
+	<target name="prepare-cobertura">
+		<cobertura-instrument todir="${dir.test-instrument}" classpathref="classpath.cobertura">
+			<ignore regex="org.apache.log4j.*" />
+		    <fileset refid="classes.coveragereport" />
+		</cobertura-instrument>
+	</target>
+	
+
+	<!-- build JUnit tests -->
+	<target name="build-test">
+		<mkdir dir="${dir.test-bin}" />
+		<javac classpathref="classpath.test"
+			srcdir="${dir.test-src}"
+         	destdir="${dir.test-bin}"
+         	debug="on" />
+	</target>
+	
+	<property name="myclasspath" refid="classpath.test"/>
+         		
+	<!-- run tests -->
+	<target name="check" depends="svn-clean,build-test,prepare-cobertura">
+		
+		<echo message="${myclasspath}" />
+	
+		<!-- integration tests of invoking plugins in ProM -->
+	    <junit fork="true" dir="${home}" includeantruntime="yes" >
+	    	<!-- parameters to run ProM -->
+	    	<jvmarg value="-ea"/>
+	    	<jvmarg value="-Xmx1G"/>
+	    	<jvmarg value="-Djava.library.path=.//lib;.//stdlib;.//packagelib"/>
+	    	<!-- fixed location for cobertura to log method calls and generate report from -->
+	    	<jvmarg value="-Dnet.sourceforge.cobertura.datafile=${cobertura.datafile}"/>
+	    	
+	      <!-- class path for code coverage by cobertura -->
+	      <classpath location="${dir.test-instrument}" />
+	      <classpath refid="classpath.cobertura"/>
+
+	      <!-- class path of the code to test and the Junit framework -->
+	      <classpath refid="classpath.test"/>
+	    	
+		  <!-- JUnit: set output format -->
+		  <formatter type="xml"/>
+	      <formatter type="plain"/>
+	    	
+
+  	      <!-- JUnit: test cases to run -->
+      	  <sysproperty key="test.testFileRoot" path="${dir.testfiles}"/>
+  	      <sysproperty key="test.testScriptRoot" path="${dir.autoscripts}"/>
+  		  <sysproperty key="test.inclassTestsAt" value="${dir.inclassTests}"/>
+      	  <batchtest fork="yes" todir="${test.basedir}">
+      	    <fileset dir="${dir.test-src}">
+      	      <include name="${test.default}"/>
+      	    </fileset>
+      	  </batchtest>
+  		  <!-- add other tests: -->
+  		  <!-- test name="org.processmining.tests.package.TestClass" todir="${test.basedir}" / -->
+	    </junit>
+		
+		<!-- Cobertura: generate HTML coverage report -->
+		<cobertura-report destdir="${dir.coveragereport.html}" format="html">
+			<fileset refid="src.coveragereport-Framework" />
+		    <fileset refid="src.coveragereport-Contexts" />
+			<fileset refid="src.coveragereport-Models" />
+		</cobertura-report>
+		
+		<cobertura-report destdir="${dir.coveragereport.xml}" format="xml">
+			<fileset refid="src.coveragereport-Framework" />
+		    <fileset refid="src.coveragereport-Contexts" />
+			<fileset refid="src.coveragereport-Models" />
+		</cobertura-report>		
+		
+	</target>
+
+	<!-- clean build files and intermediate results -->
+	<target name="clean" description="Remove all intermediate results">
+		<delete dir="${dir.test-bin}" includeemptydirs="true" failonerror="false" />
+		<!-- 
+			<delete dir="${dir.test-env-bin}" includeemptydirs="true" failonerror="false" /> 
+		  -->
+		<delete dir="${dir.test-instrument}" includeemptydirs="true" failonerror="false" />
+		<delete file="${cobertura.datafile}" failonerror="false" />
+	</target>
+	
+	<target name="svn-clean" depends="clean"
+			description="Remove all results, including test results and coverage reports.">
+		<!-- coverage report -->
+		<delete dir="${dir.coveragereport.html}" includeemptydirs="true" failonerror="false" />
+		<delete dir="${dir.coveragereport.xml}" includeemptydirs="true" failonerror="false" />
+		<!-- test reports -->
+		<delete failonerror="false">
+			<fileset dir="${test.basedir}">
+				<include name="TEST-*.txt"/>
+				<include name="TEST-*.xml"/>
+			</fileset>
+		</delete>
+	</target>
+	
+</project>
