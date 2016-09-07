@@ -1,4 +1,4 @@
-<project name="NewPackageIvy" default="Compile Sources" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="ProM-Framework" default="Compile Sources" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 	<!-- set global properties for this build -->
 	<property environment="env" />
 	<property name="src" location="src" />
@@ -8,12 +8,12 @@
 	<property name="dist" location="dist" />
 	<property name="release" location="latestrelease" />
 	<property name="version" value="${major_minor}.${env.BUILD_NUMBER}" />
-	<property name="project" value="NewPackageIvy" />
+	<property name="project" value="ProM-Framework" />
 
 	<property name="author" value="H.M.W. Verbeek" />
 	<property name="organization" value="Eindhoven University of Technology" />
-	<property name="description" value="New Package with Ivy" />
-	<property name="license" value="L-GPL" />
+	<property name="description" value="ProM-Framework" />
+	<property name="license" value="GPL" />
 	<property name="logo" value="http://www.promtools.org/prom6/packages/prom_subtitle_hat_300.png" />
 
 	<property name="ivy.lib.dir" value="ivy" />
@@ -163,11 +163,14 @@
 
 	<target name="resolve">
 		<ivy:retrieve />
-		<!--copy todir="lib" overwrite="true">
+		<copy todir="lib" overwrite="true">
 			<fileset dir="ivy">
-				<include name="xxx.jar" />
+				<include name="commons-compress-1.0.jar" />
+				<include name="jargs-latest.jar" />
+				<include name="slickerbox-1.0rc1.jar" />
+				<include name="xstream-1.3.1.jar" />
 			</fileset>
-		</copy-->
+		</copy>
 	</target>
 
 </project>
