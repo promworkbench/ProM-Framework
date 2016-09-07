@@ -9,6 +9,7 @@
        <dependency org="prom-libs" name="jargs" rev="latest" changing="false" transitive="false" />
        <dependency org="prom-libs" name="jgraph" rev="5.13.0.4" changing="false" transitive="false" />
        <dependency org="prom-libs" name="slickerbox" rev="1.0rc1" changing="false" transitive="false" />
+       <dependency org="prom-libs" name="TableLayout" rev="20050920" changing="false" transitive="false" />
        <dependency org="com.thoughtworks.xstream" name="xstream" rev="1.3.1" changing="false" transitive="false" />
     </dependencies>
 </ivy-module>
