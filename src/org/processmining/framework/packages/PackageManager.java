@@ -651,13 +651,15 @@ public class PackageManager {
 				}
 				if (!extra.isEmpty()) {
 					for (String s : extra) {
-						if (!map.containsKey(s)) {
+						if (!map.containsKey(s) || map.get(s) ==  null) {
 							// package required that is not available, break.
 							error = true;
+							System.err.println("[PackageManager] Package " + s + " is not available.");
+						} else {
+							PackageDescriptor first = map.get(s).first();
+							toAdd.add(first);
+							newState.add(first);
 						}
-						PackageDescriptor first = map.get(s).first();
-						toAdd.add(first);
-						newState.add(first);
 					}
 					checkConsistency(newState);
 				}
