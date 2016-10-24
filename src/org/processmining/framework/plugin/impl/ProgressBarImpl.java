@@ -77,6 +77,10 @@ public class ProgressBarImpl implements Progress {
 
 	public boolean isCancelled() {
 		PluginExecutionResult results = context.getResult();
+		// [HV] To be safe, check the following:
+		if (results == null) {
+			return false;
+		}
 		for (int i = 0; !canceled && (i < results.getSize()); i++) {
 			try {
 				Object o = results.getResult(i);
