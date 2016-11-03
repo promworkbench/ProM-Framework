@@ -84,30 +84,42 @@
 		</sequential>
 	</macrodef>
 
-
-	<!-- clean all binaries and distributions -->
-	<target name="Clean build and dist folders" description="clean up" id="1">
-		<!-- Delete the ${build} and ${dist} directory trees -->
+	<target name="clean">
+		<echo message="[build] Cleaning binaries and distributions" />
 		<delete dir="${build}" />
 		<delete dir="${dist}" />
 	</target>
+	
+	<target name="resolve">
+		<ivy:retrieve type="jar,bundle" sync="true" />
+		<ivy:retrieve pattern="lib/[artifact].[ext]" conf="lib" type="jar,bundle" sync="true" />
+	</target>
 
-
-	<!-- create the project's javadoc from all existing sources. Note that only org.processmining.** is included -->
-	<target name="Create Javadoc" description="Generated javadoc">
+	<target name="javadoc">
+		<echo message="[build] Creating javadoc" />
 		<javadoc packagenames="**" classpathref="classpath" useexternalfile="true" defaultexcludes="yes" destdir="${doc}" author="true" version="true" verbose="false" use="true" windowtitle="${project}">
 			<fileset dir=".">
-				<include name="src/**" />
-				<exclude name="src/test/**" />
-				<exclude name="**/*.jj" />
-				<exclude name="**/*.jjt" />
+				<include name="src/**/*.java" />
+				<exclude name="src/test/**/*.java" />
 			</fileset>
 		</javadoc>
 	</target>
-
-	<!-- export distribution archive -->
-	<target name="Create downloadable archive" depends="Compile Sources">
-		<echo message="Building zip file packaging this project" />
+	
+	<target name="compile">
+		<echo message="[build] Compiling the sources" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${dist}" />
+		<compile />
+	</target>
+		
+	<target name="makejar">
+		<echo message="[build] Creating jar" />
+		<tstamp />
+		<makejar />
+	</target>
+		
+	<target name="archive">
+		<echo message="[build] Packaging the project" />
 		<sequential>
 			<delete includeEmptyDirs="true" quiet="true">
 				<fileset dir="${release}" includes="${project}-*-${os}.zip" />
@@ -148,32 +160,30 @@
 			<replace file="${release}/ivy.xml" token="VERSION" value="${version}" />
 		</sequential>
 	</target>
+	
+	<!-- Target to use to build the project on Hudson -->
+	<target name="buildHudson" depends="clean,resolve,javadoc,compile,makejar,archive" />
+	
+	<!-- Target to use to prepare for a downstream build -->
+	<!-- The upstream changes will be copied in following this target -->
+	<target name="prepareDownstream" depends="clean,resolve" />
+	
+	<!-- Target to use to do the downstram build -->
+	<!-- The upstream changes will be copied in preceding this target -->
+	<target name="buildDownstream" depends="compile" />
+	
+	<!-- Targets for sake of backwards compatibility -->
+	
+	<!-- clean all binaries and distributions -->
+	<target name="Clean build and dist folders" description="clean up" id="1" depends="clean" />
 
-	<target name="Compile Sources" depends="resolve">
-		<!-- Create the build directory structure used by compile -->
-		<!-- Create the time stamp -->
-		<tstamp />
-		<mkdir dir="${build}" />
-		<mkdir dir="${dist}" />
-		<echo message="Compiling the sources" />
-		<compile />
-		<echo message="Making jar" />
-		<makejar />
-	</target>
+	<!-- create the project's javadoc from all existing sources. Note that only org.processmining.** is included -->
+	<target name="Create Javadoc" description="Generated javadoc" depends="javadoc" />
 
-	<target name="resolve">
-		<ivy:retrieve />
-		<copy todir="lib" overwrite="true">
-			<fileset dir="ivy">
-				<include name="commons-compress-1.0.jar" />
-				<include name="jargs-latest.jar" />
-				<include name="jgraph-5.13.0.4.jar" />
-				<include name="slickerbox-1.0rc1.jar" />
-				<include name="TableLayout-20050920.jar" />
-				<include name="xstream-1.3.1.jar" />
-			</fileset>
-		</copy>
-	</target>
+	<!-- export distribution archive -->
+	<target name="Create downloadable archive" depends="Compile Sources,archive" />
+
+	<target name="Compile Sources" depends="resolve,compile,makejar" />
 
 </project>
 
