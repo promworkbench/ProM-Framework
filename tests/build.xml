@@ -49,23 +49,10 @@
 	
 	<!-- definitions for cobertura, to generate code coverage reports -->
 	<path id="classpath.cobertura">
-		<pathelement location="${test.basedir}/libs-external/cobertura-2.0.3.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-4.1.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-analysis-4.1.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-commons-4.1.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-tree-4.1.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/asm-util-4.1.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/dom4j-1.6.1.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/icu4j-2.6.1.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/jaxen-1.1-beta-8.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/jdom-1.0.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/jetty-6.1.14.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/jetty-util-6.1.14.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/log4j-1.2.9.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/oro-2.0.8.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/servlet-api-2.5-6.1.14.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/tagsoup-0.9.7.jar" />
-		<pathelement location="${test.basedir}/libs-external/lib-cobertura-2.0.3/xmlParserAPIs-2.6.2.jar" />
+      	<fileset dir="${test.basedir}/libs-external">
+      		<include name="cobertura-2.1.1.jar" />
+        	<include name="lib-cobertura-2.1.1/**/*.jar" />
+      	</fileset>
   	</path>
 	<!-- load cobertura ant task definition -->
 	<taskdef classpathref="classpath.cobertura" resource="tasks.properties"/>
