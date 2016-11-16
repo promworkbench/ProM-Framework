@@ -83,7 +83,7 @@ public class Boot {
 		HIDE_OLD_PACKAGES = false;
 		CHECK_PACKAGES = false;
 		PLUGIN_QUALITY_THRESHOLD = PluginQuality.VeryPoor;
-		PLUGIN_LEVEL_THRESHOLD = PluginLevel.NightlyBuild;
+		PLUGIN_LEVEL_THRESHOLD = PluginLevel.Local;
 		CONNECT_TIMEOUT = 100;
 		READ_TIMEOUT = 1000;
 
@@ -177,7 +177,7 @@ public class Boot {
 					}
 				}
 
-				PLUGIN_LEVEL_THRESHOLD = PluginLevel.NightlyBuild;
+				PLUGIN_LEVEL_THRESHOLD = PluginLevel.Local;
 				threshold = ini.getProperty("PLUGIN_LEVEL_THRESHOLD", PLUGIN_LEVEL_THRESHOLD.getName());
 				for (PluginLevel level : PluginLevel.values()) {
 					if (level.getName().equals(threshold)) {
