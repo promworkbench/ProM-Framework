@@ -345,6 +345,9 @@ public final class PluginManagerImpl implements PluginManager {
 				//t.printStackTrace();
 			}
 		}
+		if (isAnnotated && !className.startsWith("org.processmining.")) {
+			System.err.println("INFO class " + className + " contains plug-ins.");
+		}
 		return isAnnotated ? className : null;
 	}
 
