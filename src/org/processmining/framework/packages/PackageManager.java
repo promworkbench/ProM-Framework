@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -56,7 +57,6 @@ import org.xml.sax.SAXException;
  * @author peter
  */
 public class PackageManager {
-
 	private final static String DO_AUTO_UPDATES = "do_auto_updates";
 	private static final String LITE_VERSION_INSTALLED = "lite_version_installed";
 
@@ -228,8 +228,17 @@ public class PackageManager {
 
 	private void scanRepositories(Boot.Level verbose) throws ParserConfigurationException, SAXException, IOException {
 
-		HashSet<Repository> read = new HashSet<Repository>();
-		HashSet<Repository> toRead = new HashSet<Repository>(repositories);
+		final Comparator<Repository> comp = new Comparator<Repository>() {
+
+			public int compare(Repository o1, Repository o2) {
+				return o1.getURL().toString().compareTo(o2.getURL().toString());
+			}
+		};
+
+		Set<Repository> read = new TreeSet<Repository>(comp);
+		Set<Repository> toRead = new TreeSet<Repository>(comp);
+		toRead.addAll(repositories);
+
 		toRead.add(new Repository(Boot.DEFAULT_REPOSITORY));
 		while (!toRead.isEmpty()) {
 			for (Repository rep : toRead) {
@@ -260,10 +269,17 @@ public class PackageManager {
 					if (Boot.VERBOSE != Level.NONE) {
 						System.err.println("Failed to read package in " + time + " milliseconds.");
 					}
+				} catch (FileNotFoundException e) {
+					// did not fine the file for some package
+					time += System.currentTimeMillis();
+					if (Boot.VERBOSE != Level.NONE) {
+						System.err.println("Failed to read package (file not found).");
+					}
 				}
 			}
 			read.addAll(toRead);
-			toRead = new HashSet<Repository>(repositories);
+			toRead.clear();
+			toRead.addAll(repositories);
 			toRead.removeAll(read);
 		}
 
@@ -477,6 +493,7 @@ public class PackageManager {
 			scanRepositories(verbose);
 		} catch (Exception e) {
 			// continue with known repositories
+			e.printStackTrace();
 		}
 		Map<String, SortedSet<PackageDescriptor>> map = PackageManager.getPackageMap(available);
 
@@ -651,7 +668,7 @@ public class PackageManager {
 				}
 				if (!extra.isEmpty()) {
 					for (String s : extra) {
-						if (!map.containsKey(s) || map.get(s) ==  null) {
+						if (!map.containsKey(s) || map.get(s) == null) {
 							// package required that is not available, break.
 							error = true;
 							System.err.println("[PackageManager] Package " + s + " is not available.");
