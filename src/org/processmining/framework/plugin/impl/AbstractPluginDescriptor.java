@@ -105,6 +105,10 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 
 		return result;
 	}
+	
+//	private final GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
+	private final GoogleAnalytics googleAnalytics = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
+	private final String userAgent = System.getProperty("http.agent");
 
 	public PluginExecutionResult invoke(final int methodIndex, final PluginContext context, final Object... args) {
 
@@ -146,16 +150,13 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 					// this plugin
 					try {
 						if (Boot.isTrackingByGAAllowed()) {
-//							GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
-							GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
 							EventHit eh = new EventHit();
 							eh.eventAction("Run ProM Plug-in");
 							eh.eventLabel(getName());
 							eh.eventCategory(getPackage().getName());
-							String userAgent = System.getProperty("http.agent");
 							eh.userAgent(userAgent);
-//							ga.postAsync(eh);
-							System.out.println("[AbstractPluginDescriptor] Send to GA: [action=" + eh.eventAction() + ",label=" + eh.eventLabel() + ",category=" + eh.eventCategory() + ",agent=" + eh.userAgent() + ",...]");
+//							googleAnalytics.postAsync(eh);
+							System.out.println("[AbstractPluginDescriptor] Send to GA:" + eh);
 						}
 						System.out.println("Start plug-in " + getName());
 						long time = -System.currentTimeMillis();
