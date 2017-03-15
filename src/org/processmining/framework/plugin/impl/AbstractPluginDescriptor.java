@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.processmining.framework.boot.Boot;
 import org.processmining.framework.plugin.InSufficientResultException;
 import org.processmining.framework.plugin.PluginContext;
 import org.processmining.framework.plugin.PluginDescriptor;
@@ -16,6 +17,9 @@ import org.processmining.framework.plugin.PluginExecutionResult;
 import org.processmining.framework.plugin.ProMFuture;
 import org.processmining.framework.plugin.RecursiveCallException;
 import org.processmining.framework.plugin.events.Logger.MessageLevel;
+
+import com.brsanthu.googleanalytics.EventHit;
+import com.brsanthu.googleanalytics.GoogleAnalytics;
 
 public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 
@@ -141,7 +145,18 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 					// are forwarded, so start the computation of
 					// this plugin
 					try {
-
+						if (Boot.isTrackingByGAAllowed()) {
+//							GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
+							GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
+							EventHit eh = new EventHit();
+							eh.eventAction("Run ProM Plug-in");
+							eh.eventLabel(getName());
+							eh.eventCategory(getPackage().getName());
+							String userAgent = System.getProperty("http.agent");
+							eh.userAgent(userAgent);
+//							ga.postAsync(eh);
+							System.out.println("[AbstractPluginDescriptor] Send to GA: [action=" + eh.eventAction() + ",label=" + eh.eventLabel() + ",category=" + eh.eventCategory() + ",agent=" + eh.userAgent() + ",...]");
+						}
 						System.out.println("Start plug-in " + getName());
 						long time = -System.currentTimeMillis();
 						Object[] result = execute(context, methodIndex, allArgs);
