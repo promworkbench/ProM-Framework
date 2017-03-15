@@ -111,6 +111,8 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 
 		ProMFuture<?>[] futures = new ProMFuture[Math.max(1, getReturnTypes().size())];
 
+//		final GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
+		final GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
 		final String userAgent = System.getProperty("http.agent");
 		
 		Class<?> returnType;
@@ -148,8 +150,6 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 					// this plugin
 					try {
 						if (Boot.isTrackingByGAAllowed()) {
-//							GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
-							GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
 							EventHit eh = new EventHit();
 							eh.eventAction("Run ProM Plug-in");
 							eh.eventLabel(getName());
