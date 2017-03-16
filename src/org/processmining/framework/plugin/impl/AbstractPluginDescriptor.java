@@ -17,9 +17,7 @@ import org.processmining.framework.plugin.PluginExecutionResult;
 import org.processmining.framework.plugin.ProMFuture;
 import org.processmining.framework.plugin.RecursiveCallException;
 import org.processmining.framework.plugin.events.Logger.MessageLevel;
-
-import com.brsanthu.googleanalytics.EventHit;
-import com.brsanthu.googleanalytics.GoogleAnalytics;
+import org.processmining.framework.util.GoogleAnalyticsUtil;
 
 public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 
@@ -111,10 +109,6 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 
 		ProMFuture<?>[] futures = new ProMFuture[Math.max(1, getReturnTypes().size())];
 
-//		final GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
-		final GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
-		final String userAgent = System.getProperty("http.agent");
-		
 		Class<?> returnType;
 		String name;
 		final PluginExecutionResultImpl lock;
@@ -150,13 +144,7 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 					// this plugin
 					try {
 						if (Boot.isTrackingByGAAllowed()) {
-							EventHit eh = new EventHit();
-							eh.eventAction("Run ProM Plug-in");
-							eh.eventLabel(getName());
-							eh.eventCategory(getPackage().getName());
-							eh.userAgent(userAgent);
-//							ga.postAsync(eh);
-							System.out.println("[AbstractPluginDescriptor] event=" + eh + ", userAgent=" + userAgent);
+							(new GoogleAnalyticsUtil()).runPluginEvent(getName(), getPackage() != null ? getPackage().getName() : null);
 						}
 						System.out.println("Start plug-in " + getName());
 						long time = -System.currentTimeMillis();
