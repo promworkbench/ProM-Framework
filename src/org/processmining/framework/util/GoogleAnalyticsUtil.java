@@ -5,6 +5,9 @@ import com.brsanthu.googleanalytics.GoogleAnalytics;
 
 public class GoogleAnalyticsUtil {
 
+//	private GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
+	private GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
+
 	public void runPluginEvent(String pluginName, String packageName) {
 		EventHit eh = new EventHit();
 		eh.eventAction("Run ProM Plug-in");
@@ -18,10 +21,9 @@ public class GoogleAnalyticsUtil {
 		} else {
 			eh.eventCategory(packageName);
 		}
-//		eh.userAgent(userAgent);
-//		GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
-		GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
+		
 		ga.postAsync(eh);
+//		ga.close();
 		System.out.println("[GoogleAnalyticsUtil] " + eh);
 	}
 }

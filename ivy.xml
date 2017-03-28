@@ -15,6 +15,12 @@
        <dependency conf="lib->default" org="prom-libs" name="slickerbox" rev="1.0rc1" changing="false" transitive="false" />
        <dependency conf="lib->default" org="prom-libs" name="TableLayout" rev="20050920" changing="false" transitive="false" />
        <dependency conf="lib->default" org="com.thoughtworks.xstream" name="xstream" rev="1.3.1" changing="false" transitive="false" />
-       <dependency conf="lib->default" org="com.brsanthu" name="google-analytics-java" rev="1.1.2" transitive="false" /> 
-    </dependencies>
+       <dependency conf="lib->default" org="com.brsanthu" name="google-analytics-java" rev="1.1.2" transitive="false" />
+       <dependency conf="lib->default" org="org.apache.httpcomponents" name="httpclient" rev="4.5.3"/> 
+	   <dependency conf="lib->default" org="org.apache.httpcomponents" name="httpcore" rev="4.4.6"/>    
+	   <dependency conf="lib->default" org="org.slf4j" name="slf4j-api" rev="1.7.25"/>	
+	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-api" rev="2.8.1"/>
+	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-core" rev="2.8.1"/>
+	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.8.1"/>
+	</dependencies>
 </ivy-module>
