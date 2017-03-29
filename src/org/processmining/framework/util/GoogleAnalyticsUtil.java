@@ -22,8 +22,14 @@ public class GoogleAnalyticsUtil {
 			eh.eventCategory(packageName);
 		}
 		
+//		ga.post(eh);
 		ga.postAsync(eh);
-//		ga.close();
-		System.out.println("[GoogleAnalyticsUtil] " + eh);
+		/*
+		 * if you uncomment the next line, make sure you're using post() and not postAsync() in the previous lines.
+		 * Both post() and postAsync() may change the content of variable eh, which may cause problesm when writing
+		 * out the value of this variable.
+		 * 
+		 */
+//		System.out.println("[GoogleAnalyticsUtil] " + eh);
 	}
 }
