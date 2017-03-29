@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -264,16 +263,16 @@ public class PackageManager {
 					if (Boot.VERBOSE == Level.ALL) {
 						System.out.println("Read package in " + time + " milliseconds.");
 					}
-				} catch (SocketTimeoutException e) {
-					time += System.currentTimeMillis();
-					if (Boot.VERBOSE != Level.NONE) {
-						System.err.println("Failed to read package in " + time + " milliseconds.");
-					}
 				} catch (FileNotFoundException e) {
-					// did not fine the file for some package
+					// did not find the file for some package
 					time += System.currentTimeMillis();
 					if (Boot.VERBOSE != Level.NONE) {
 						System.err.println("Failed to read package (file not found).");
+					}
+				} catch (IOException e) {
+					time += System.currentTimeMillis();
+					if (Boot.VERBOSE != Level.NONE) {
+						System.err.println("Failed to read package in " + time + " milliseconds.");
 					}
 				}
 			}
