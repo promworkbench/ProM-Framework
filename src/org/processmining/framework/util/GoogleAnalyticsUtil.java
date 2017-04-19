@@ -10,6 +10,8 @@ public class GoogleAnalyticsUtil {
 
 	public void runPluginEvent(String pluginName, String packageName) {
 		EventHit eh = new EventHit();
+		// Anonymize the IP. We're not that interested in it. 
+		eh.anonymizeIp(true);
 		eh.eventAction("Run ProM Plug-in");
 		if (pluginName == null) {
 			eh.eventLabel("<No plug-in name>");
@@ -23,6 +25,8 @@ public class GoogleAnalyticsUtil {
 		}
 		
 //		ga.post(eh);
+		// Use https if possible. 
+		ga.getConfig().setUseHttps(true);
 		ga.postAsync(eh);
 		/*
 		 * if you uncomment the next line, make sure you're using post() and not postAsync() in the previous lines.
