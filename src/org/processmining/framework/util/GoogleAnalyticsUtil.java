@@ -5,8 +5,8 @@ import com.brsanthu.googleanalytics.GoogleAnalytics;
 
 public class GoogleAnalyticsUtil {
 
-//	private GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
-	private GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
+	private GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-7"); // www.promtools.org
+//	private GoogleAnalytics ga = new GoogleAnalytics("UA-1999775-1"); // www.win.tue.nl/~hverbeek
 
 	public void runPluginEvent(String pluginName, String packageName) {
 		EventHit eh = new EventHit();
