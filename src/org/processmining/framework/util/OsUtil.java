@@ -2,12 +2,16 @@ package org.processmining.framework.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 
 import org.processmining.framework.boot.Boot;
 
-import com.sun.management.OperatingSystemMXBean;
-
 import sun.management.ManagementFactoryHelper;
+
+import com.sun.management.OperatingSystemMXBean;
 
 public class OsUtil {
 
@@ -109,7 +113,9 @@ public class OsUtil {
 	//	}
 
 	/**
-	 * Returns a handle to the ProM package folder. Creates the folder in case it does not yet exist.
+	 * Returns a handle to the ProM package folder. Creates the folder in case
+	 * it does not yet exist.
+	 * 
 	 * @return The handle to the folder.
 	 */
 	public static File getProMPackageDirectory() {
@@ -118,14 +124,17 @@ public class OsUtil {
 
 	/**
 	 * Returns whether the ProM package folder exists on this system.
+	 * 
 	 * @return Whether the folder exists.
 	 */
 	public static boolean hasProMPackageDirectory() {
 		return hasDirectory(Boot.PACKAGE_FOLDER);
 	}
-	
+
 	/**
-	 * Returns a handle to the ProM workspace folder. Creates the folder in case it does not yet exist.
+	 * Returns a handle to the ProM workspace folder. Creates the folder in case
+	 * it does not yet exist.
+	 * 
 	 * @return The handle to the folder.
 	 */
 	public static File getProMWorkspaceDirectory() {
@@ -134,33 +143,52 @@ public class OsUtil {
 
 	/**
 	 * Returns whether the ProM workspace folder exists on this system.
+	 * 
 	 * @return Whether the folder exists.
 	 */
 	public static boolean hasProMWorkspaceDirectory() {
 		return hasDirectory(Boot.WORKSPACE_FOLDER);
 	}
-	
+
 	/*
-	 * Returns a handle to the folder with provided name. Creates the folder in case it does not yet exist.
+	 * Returns a handle to the folder with provided name. Creates the folder in
+	 * case it does not yet exist.
+	 * 
 	 * @return The handle to the folder.
 	 */
 	private static File getDirectory(String dirName) {
 		File dir = new File(dirName);
 		dir.mkdirs();
-		return dir;	
+		return dir;
 	}
-	
+
 	/*
 	 * Returns whether the folder with provided name exists on this system.
+	 * 
 	 * @return Whether the folder exists.
 	 */
 	private static boolean hasDirectory(String dirName) {
 		File dir = new File(dirName);
 		return dir.exists();
 	}
-	
+
 	public static long getPhysicalMemory() {
-		OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactoryHelper.getOperatingSystemMXBean();
-		return operatingSystemMXBean.getTotalPhysicalMemorySize();		
+		try {
+			OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactoryHelper
+					.getOperatingSystemMXBean();
+			return operatingSystemMXBean.getTotalPhysicalMemorySize();
+		} catch (Exception e) {
+			// Does not work, try something else.
+		}
+		try {
+			MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+			Object attribute = mBeanServer.getAttribute(new ObjectName("java.lang", "type", "OperatingSystem"),
+					"TotalPhysicalMemorySize");
+			return Long.parseLong(attribute.toString());
+		} catch (Exception e) {
+			// Does not work, try something else.
+		}
+		// If all else fails, assume thare is just 1 GB of RAM.
+		return 1024 * 1024 * 1024;
 	}
 }
