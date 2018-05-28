@@ -286,9 +286,9 @@ public class Boot {
 			}
 		}
 
-		for (URL url : sysloader.getURLs()) {
-			System.err.println("URL = " + url);
-		}
+//		for (URL url : sysloader.getURLs()) {
+//			System.err.println("URL = " + url);
+//		}
 		
 		if (VERBOSE == Level.ALL) {
 			System.out.println(">>> Scanning for plugins took " + (System.currentTimeMillis() - startPlugins) / 1000.0
