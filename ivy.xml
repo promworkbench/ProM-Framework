@@ -26,5 +26,9 @@
 	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-api" rev="2.8.1" changing="false" transitive="false"/>
 	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-core" rev="2.8.1" changing="false" transitive="false"/>
 	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.8.1" changing="false" transitive="false"/>
+	   <!-- Include JAXB APIs as they are no longer contained on default class path as of Java 9 -->
+	   <dependency conf="lib->default" org="javax.xml.bind" name="jaxb-api" rev="2.2.11" changing="false" transitive="false"/>
+	   <dependency conf="lib->default" org="com.sun.xml.bind" name="jaxb-core" rev="2.2.11" changing="false" transitive="false"/>
+	   <dependency conf="lib->default" org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.11" changing="false" transitive="false"/>
 	</dependencies>
 </ivy-module>
