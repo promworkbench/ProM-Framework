@@ -73,8 +73,7 @@ public final class PluginManagerImpl implements PluginManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.processmining.framework.plugin.PluginManager#addErrorListener(org
+	 * @see org.processmining.framework.plugin.PluginManager#addErrorListener(org
 	 * .processmining.framework.plugin.PluginManagerImpl.ErrorListener)
 	 */
 	public void addListener(PluginManagerListener listener) {
@@ -93,8 +92,7 @@ public final class PluginManagerImpl implements PluginManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.processmining.framework.plugin.PluginManager#removeErrorListener(
+	 * @see org.processmining.framework.plugin.PluginManager#removeErrorListener(
 	 * org.processmining.framework.plugin.PluginManagerImpl.ErrorListener)
 	 */
 	public void removeListener(PluginManagerListener listener) {
@@ -127,8 +125,7 @@ public final class PluginManagerImpl implements PluginManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.processmining.framework.plugin.PluginManager#register(java.net.URL)
+	 * @see org.processmining.framework.plugin.PluginManager#register(java.net.URL)
 	 */
 	public void register(URL url, PackageDescriptor pack) {
 		URLClassLoader loader = new URLClassLoader(new URL[] { url });
@@ -253,8 +250,10 @@ public final class PluginManagerImpl implements PluginManager {
 			// we're not going to load inner classes
 			return null;
 		}
-		return loadClass(loader, url, classFilename.substring(0, classFilename.length() - CLASS_EXTENSION.length())
-				.replace(URL_SEPARATOR, PACKAGE_SEPARATOR).replace(File.separatorChar, PACKAGE_SEPARATOR), pack);
+		return loadClass(loader, url,
+				classFilename.substring(0, classFilename.length() - CLASS_EXTENSION.length())
+						.replace(URL_SEPARATOR, PACKAGE_SEPARATOR).replace(File.separatorChar, PACKAGE_SEPARATOR),
+				pack);
 	}
 
 	private String loadClassFromMacro(URI macroFile, PackageDescriptor pack) throws DependsOnUnknownException {
@@ -279,8 +278,8 @@ public final class PluginManagerImpl implements PluginManager {
 	}
 
 	/**
-	 * Returns the name of the class, if it is annotated, or if any of its
-	 * methods carries a plugin annotation!
+	 * Returns the name of the class, if it is annotated, or if any of its methods
+	 * carries a plugin annotation!
 	 * 
 	 * @param loader
 	 * @param url
@@ -447,11 +446,9 @@ public final class PluginManagerImpl implements PluginManager {
 					set.add(i);
 					if ((i < 0) || (i >= names.length)) {
 						if (Boot.VERBOSE != Level.NONE) {
-							System.err
-									.println("Method "
-											+ m.toString()
-											+ " could not be added as a plugin. At least one required parameter is not a valid index."
-											+ "There is no parameterlabel at index " + i);
+							System.err.println("Method " + m.toString()
+									+ " could not be added as a plugin. At least one required parameter is not a valid index."
+									+ "There is no parameterlabel at index " + i);
 						}
 						it.remove();
 						continue loop;
@@ -472,11 +469,9 @@ public final class PluginManagerImpl implements PluginManager {
 				Method m = it.next();
 				if (!isCorrectPluginContextType(m)) {
 					if (Boot.VERBOSE != Level.NONE) {
-						System.err
-								.println("Method "
-										+ m.toString()
-										+ " could not be added as a plugin. The context should be asked as first parameter and should be a the same, or a superclass of "
-										+ pluginContextType.getName() + ".");
+						System.err.println("Method " + m.toString()
+								+ " could not be added as a plugin. The context should be asked as first parameter and should be a the same, or a superclass of "
+								+ pluginContextType.getName() + ".");
 					}
 					it.remove();
 					continue loop;
@@ -489,10 +484,8 @@ public final class PluginManagerImpl implements PluginManager {
 				if ((returnTypes.length > 1) && !Object[].class.isAssignableFrom(m.getReturnType())
 						&& !Object.class.equals(m.getReturnType())) {
 					if (Boot.VERBOSE != Level.NONE) {
-						System.err
-								.println("Method "
-										+ m.toString()
-										+ " could not be added as a plugin. The plugin should return an array of objects as specified in the context.");
+						System.err.println("Method " + m.toString()
+								+ " could not be added as a plugin. The plugin should return an array of objects as specified in the context.");
 					}
 					it.remove();
 					continue loop;
@@ -547,7 +540,8 @@ public final class PluginManagerImpl implements PluginManager {
 			}
 
 			if ((method.getAnnotation(Plugin.class).parameterLabels().length != 0)
-					&& (method.getAnnotation(Plugin.class).parameterLabels().length != method.getParameterTypes().length - 1)) {
+					&& (method.getAnnotation(Plugin.class).parameterLabels().length != method.getParameterTypes().length
+							- 1)) {
 				if (Boot.VERBOSE != Level.NONE) {
 					System.err.println("Plugin " + method.toString() + " could not be added as a plugin, the number of"
 							+ " parameter labels does not match the number of parameters.");
@@ -622,8 +616,7 @@ public final class PluginManagerImpl implements PluginManager {
 		for (PluginDescriptor plugin : pls) {
 			if (mustBeUserVisible && (!plugin.meetsQualityThreshold() || !plugin.meetsLevelThreshold())) {
 				/*
-				 * Plug-in does not meet some required threshold to do so.
-				 * Ignore it.
+				 * Plug-in does not meet some required threshold to do so. Ignore it.
 				 */
 				continue;
 			}
@@ -645,6 +638,62 @@ public final class PluginManagerImpl implements PluginManager {
 						for (PluginParameterBinding binding : list) {
 
 							result.add(new ComparablePair<Integer, PluginParameterBinding>(i, binding));
+							//							// Quit the loop since only one binding is to be
+							//							// found.
+							//							j = plugin.getParameterTypes().size();
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	public Set<Pair<Integer, PluginParameterBinding>> find(Class<? extends Annotation> annotation,
+			Class<?>[] resultTypes, Class<? extends PluginContext> contextType, boolean totalMatch,
+			boolean orderedParameters, boolean mustBeUserVisible, Class<?>... parameters) {
+
+		if (resultTypes == null || resultTypes.length == 0) {
+			throw new UnsupportedOperationException(
+					"Cannot find plugins with empty or null list of return types using the find method with list input.");
+		}
+
+		Set<Pair<Integer, PluginParameterBinding>> result = new TreeSet<Pair<Integer, PluginParameterBinding>>();
+		Set<PluginDescriptor> pls = annotation2plugins.get(annotation);
+		if (pls == null) {
+			return result;
+		}
+		for (PluginDescriptor plugin : pls) {
+			if (mustBeUserVisible && (!plugin.meetsQualityThreshold() || !plugin.meetsLevelThreshold())) {
+				/*
+				 * Plug-in does not meet some required threshold to do so. Ignore it.
+				 */
+				continue;
+			}
+			if (!mustBeUserVisible || plugin.isUserAccessible()) {
+				List<Class<?>> returnTypes = plugin.getReturnTypes();
+				int[] indices = new int[resultTypes.length];
+				boolean ok = returnTypes.size() == indices.length;
+
+				for (int r = 0; ok && r < resultTypes.length; r++) {
+					Class<?> resultType = resultTypes[r];
+					// check if return type at index r is the right type
+					ok &= isParameterAssignable(returnTypes.get(r), resultTypes[r]);
+				}
+				if (ok) {
+					for (int j = 0; j < plugin.getParameterTypes().size(); j++) {
+						if (!plugin.getContextType(j).isAssignableFrom(contextType)) {
+							// Check context types
+							continue;
+						}
+
+						List<PluginParameterBinding> list = PluginParameterBinding.Factory.tryToBind(this, plugin, j,
+								totalMatch, orderedParameters, parameters);
+						for (PluginParameterBinding binding : list) {
+
+							for (int r = 0; r < resultTypes.length; r++) {
+								result.add(new ComparablePair<Integer, PluginParameterBinding>(r, binding));
+							}
 							//							// Quit the loop since only one binding is to be
 							//							// found.
 							//							j = plugin.getParameterTypes().size();
@@ -692,7 +741,7 @@ public final class PluginManagerImpl implements PluginManager {
 	public Set<PluginParameterBinding> getPluginsAcceptingAtLeast(Class<? extends PluginContext> contextType,
 			boolean mustBeUserVisible, Class<?>... parameters) {
 		Set<PluginParameterBinding> result = new TreeSet<PluginParameterBinding>();
-		for (Pair<Integer, PluginParameterBinding> pair : find(Plugin.class, null, contextType, false, false,
+		for (Pair<Integer, PluginParameterBinding> pair : find(Plugin.class, (Class<?>) null, contextType, false, false,
 				mustBeUserVisible, parameters)) {
 			result.add(pair.getSecond());
 		}
@@ -702,7 +751,7 @@ public final class PluginManagerImpl implements PluginManager {
 	public Set<PluginParameterBinding> getPluginsAcceptingInAnyOrder(Class<? extends PluginContext> contextType,
 			boolean mustBeUserVisible, Class<?>... parameters) {
 		Set<PluginParameterBinding> result = new TreeSet<PluginParameterBinding>();
-		for (Pair<Integer, PluginParameterBinding> pair : find(Plugin.class, null, contextType, true, false,
+		for (Pair<Integer, PluginParameterBinding> pair : find(Plugin.class, (Class<?>) null, contextType, true, false,
 				mustBeUserVisible, parameters)) {
 			result.add(pair.getSecond());
 		}
@@ -712,7 +761,7 @@ public final class PluginManagerImpl implements PluginManager {
 	public Set<PluginParameterBinding> getPluginsAcceptingOrdered(Class<? extends PluginContext> contextType,
 			boolean mustBeUserVisible, Class<?>... parameters) {
 		Set<PluginParameterBinding> result = new TreeSet<PluginParameterBinding>();
-		for (Pair<Integer, PluginParameterBinding> pair : find(Plugin.class, null, contextType, true, true,
+		for (Pair<Integer, PluginParameterBinding> pair : find(Plugin.class, (Class<?>) null, contextType, true, true,
 				mustBeUserVisible, parameters)) {
 			result.add(pair.getSecond());
 		}
@@ -739,8 +788,8 @@ public final class PluginManagerImpl implements PluginManager {
 			boolean visible = plugin.isUserAccessible();
 			if (mustBeUserVisible && (!plugin.meetsQualityThreshold() || !plugin.meetsLevelThreshold())) {
 				/*
-				 * Plug-in can be user visible (that is, should end up in the
-				 * GUI), but does not meet some required threshold. Ignore it.
+				 * Plug-in can be user visible (that is, should end up in the GUI), but does not
+				 * meet some required threshold. Ignore it.
 				 */
 				continue;
 			}
