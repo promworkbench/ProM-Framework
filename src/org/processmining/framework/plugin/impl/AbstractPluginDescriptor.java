@@ -9,6 +9,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import javax.swing.JOptionPane;
+
 import org.processmining.framework.boot.Boot;
 import org.processmining.framework.plugin.InSufficientResultException;
 import org.processmining.framework.plugin.PluginContext;
@@ -189,6 +191,7 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 							get();
 							context.getPluginLifeCycleEventListeners().firePluginCompleted(context);
 						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null, "Exception happened: "+e.getMessage());
 							context.getPluginLifeCycleEventListeners().firePluginTerminatedWithError(context, e);
 							context.log(e);
 						}
