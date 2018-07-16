@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.prefs.Preferences;
 
@@ -256,11 +258,24 @@ public class Boot {
 			System.out.println("Loading plugins from packages.");
 		}
 
+		/**
+		 * (berti) Made "addJarsForPackage" method as thread
+		 * to use parallelism
+		 */
+		List<Thread> loadingThreadsPackage = new ArrayList<Thread>();
 		for (PackageDescriptor pack : packages.getEnabledPackages()) {
 			if (VERBOSE == Level.ALL) {
 				System.out.println("Processing Package: " + pack.getName());
 			}
-			addJarsForPackage(pack, VERBOSE, plugins);
+			//addJarsForPackage(pack, VERBOSE, plugins);
+			AddJarsForPackageRunnable addJarsForPackage = new AddJarsForPackageRunnable(pack, VERBOSE, plugins);
+			loadingThreadsPackage.add(addJarsForPackage);
+			loadingThreadsPackage.get(loadingThreadsPackage.size()-1).start();
+		}
+		
+		// wait for each thread to finish the job before continuing
+		for (Thread t : loadingThreadsPackage) {
+			t.join();
 		}
 
 		if (VERBOSE == Level.ALL) {
@@ -401,7 +416,7 @@ public class Boot {
 	 *            If true, then all classes are scanned for annotations and for
 	 *            plugins. This property recusively propagates to sub-folders.
 	 */
-	private static void addJarsFromPackageDirectory(File dir, Boot.Level verbose, PluginManager plugins) {
+	static void addJarsFromPackageDirectory(File dir, Boot.Level verbose, PluginManager plugins) {
 
 		for (File f : dir.listFiles()) {
 			if (f.isDirectory()) {
@@ -424,7 +439,7 @@ public class Boot {
 		}
 	}
 
-	private static void addURLToClasspath(URL url) {
+	static void addURLToClasspath(URL url) {
 		try {
 			URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
 			Method method = URLClassLoader.class.getDeclaredMethod("addURL", new Class<?>[] { URL.class });
