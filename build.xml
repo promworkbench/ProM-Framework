@@ -14,7 +14,7 @@
 	<property name="organization" value="Eindhoven University of Technology" />
 	<property name="description" value="ProM-Framework" />
 	<property name="license" value="GPL" />
-	<property name="logo" value="http://www.promtools.org/prom6/packages/prom_subtitle_hat_300.png" />
+	<property name="logo" value="prom_subtitle_hat_300.png" />
 
 	<property name="ivy.lib.dir" value="ivy" />
 	<property name="ivy.cache.dir" value="/var/lib/hudson/.ivy2/cache/${env.EXECUTOR_NUMBER}" />
