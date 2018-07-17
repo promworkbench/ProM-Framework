@@ -204,7 +204,21 @@ public class PackageConfigPerister {
 							curPackageURL = url;
 						}
 						curPackageOS = os;
-						curLogoURL = logo == null ? "" : logo;
+						if (logo != null) {
+							try {
+								/*
+								 * Use the context for logo URLs.
+								 */
+								curLogoURL = new URL(contextURL, logo).toString();
+							} catch (MalformedURLException e) {
+								/*
+								 * Use of context not possible. As before.
+								 */
+								curLogoURL = "";
+							}
+						} else {
+							curLogoURL = "";
+						}
 						curPackageDesc = desc == null ? "" : desc;
 						curPackageOrg = org == null ? "" : org;
 						curPackageLicense = license == null ? "" : license;
