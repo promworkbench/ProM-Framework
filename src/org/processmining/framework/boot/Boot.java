@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -140,14 +143,16 @@ public class Boot {
 						+ ini.getProperty("MACRO_FOLDER", "macros").replace("/", File.separator);
 				PathHacker.addLibraryPathFromDirectory(new File("." + File.separator + MACRO_FOLDER));
 
+				String defaultRepository = "http://www.promtools.org/prom6/packages"
+						+ PROM_VERSION.replaceAll("\\.", "") + "/packages.xml";
+				String repository = getBestRepository(ini.getProperty("PACKAGE_URL", defaultRepository).split(" "),
+						defaultRepository);
+
 				try {
-					DEFAULT_REPOSITORY = new URL(ini.getProperty("PACKAGE_URL",
-							"http://www.promtools.org/prom6/packages" + PROM_VERSION.replaceAll("\\.", "")
-									+ "/packages.xml"));
+					DEFAULT_REPOSITORY = new URL(repository);
 				} catch (MalformedURLException e) {
 					try {
-						DEFAULT_REPOSITORY = new URL("http://www.promtools.org/prom6/packages"
-								+ PROM_VERSION.replaceAll("\\.", "") + "/packages.xml");
+						DEFAULT_REPOSITORY = new URL(defaultRepository);
 					} catch (MalformedURLException e1) {
 						assert (false);
 					}
@@ -209,6 +214,105 @@ public class Boot {
 
 	}
 
+	/*
+	 * Gets the best repository from a list of repositories, where best means
+	 * the one that responds fastest. To measure the latter, we read only the
+	 * first character from the stream, and measure the wall-clock time this
+	 * took. If no repository can be returned, the default repository is
+	 * returned.
+	 */
+	public static String getBestRepository(String[] repositories, String defaultRepository) {
+		/*
+		 * The best repository so far.
+		 */
+		String bestRepository = defaultRepository;
+		/*
+		 * If no repositories are provided, use only the default repository.
+		 */
+		if (repositories.length == 0) {
+			repositories = new String[] { defaultRepository };
+		}
+		/*
+		 * If there is only a single repository, that one has to be the best
+		 * one.
+		 */
+		if (repositories.length == 1) {
+			bestRepository = repositories[0];
+		} else {
+			/*
+			 * Multiple repositories. Try to get them to respond, and use the
+			 * one that responds the fastest.
+			 */
+			bestRepository = null;
+			long bestTime = 0;
+			/*
+			 * Have a 'dry run' with i = -1, which actually connects to the
+			 * first repository.
+			 */
+			for (int i = -1; i < repositories.length; i++) {
+				try {
+					/*
+					 * Setup a connection...
+					 */
+					URL url = new URL(repositories[i < 0 ? 0 : i]);
+					URLConnection conn = url.openConnection();
+					if (conn instanceof HttpURLConnection) {
+						HttpURLConnection httpCon = (HttpURLConnection) conn;
+						if (Boot.CONNECT_TIMEOUT > 0) {
+							httpCon.setConnectTimeout(Boot.CONNECT_TIMEOUT);
+						}
+						if (Boot.READ_TIMEOUT > 0) {
+							httpCon.setReadTimeout(Boot.READ_TIMEOUT);
+						}
+					}
+					/*
+					 * ...and a stream.
+					 */
+					InputStream stream = conn.getInputStream();
+					/*
+					 * Try to read the first character on the stream.
+					 */
+					long time = -System.nanoTime();
+					stream.read();
+					time += System.nanoTime();
+					/*
+					 * Stream can now be closed.
+					 */
+					stream.close();
+					/*
+					 * If not a dry run, see whether this repository is better.
+					 */
+					if (i >= 0) {
+						System.out.println("[Boot] Repository " + repositories[i] + " took " + time + " nanoseconds.");
+						/*
+						 * Update the best repository and the best time, if
+						 * needed.
+						 */
+						if (bestRepository == null || time < bestTime) {
+							bestRepository = repositories[i];
+							bestTime = time;
+							System.out.println("[Boot] New best repository " + repositories[i]);
+						}
+					}
+				} catch (MalformedURLException e) {
+					System.err.println("[Boot] URL error with repository " + repositories[i] + ": " + e.getMessage());
+				} catch (IOException e) {
+					System.err.println("[Boot] I/O error with repository " + repositories[i] + ": " + e.getMessage());
+				}
+			}
+			/*
+			 * Fail safe: If no repository was found, use the default one.
+			 */
+			if (bestRepository == null) {
+				bestRepository = defaultRepository;
+			}
+		}
+		/*
+		 * Return the best repository found.
+		 */
+		return bestRepository;
+	}
+
 	public static boolean isLatestReleaseInstalled() {
 		return Preferences.userNodeForPackage(Boot.class).get(LAST_RELEASE_AUTOINSTALLED_KEY, "").equals(PROM_VERSION)
 				&& Preferences.userNodeForPackage(Boot.class).get(LAST_RELEASE_PACKAGE_KEY, "").equals(RELEASE_PACKAGE);
@@ -226,7 +330,7 @@ public class Boot {
 	public static boolean isTrackingByGAAllowed() {
 		return Preferences.userNodeForPackage(Boot.class).get(TRACKING_BY_GA_ALLOWED, "false").equals("true");
 	}
-	
+
 	public static void boot(Class<?> bootClass, Class<? extends PluginContext> pluginContextClass, String... args)
 			throws Exception {
 		long start = System.currentTimeMillis();
@@ -259,8 +363,7 @@ public class Boot {
 		}
 
 		/**
-		 * (berti) Made "addJarsForPackage" method as thread
-		 * to use parallelism
+		 * (berti) Made "addJarsForPackage" method as thread to use parallelism
 		 */
 		List<Thread> loadingThreadsPackage = new ArrayList<Thread>();
 		for (PackageDescriptor pack : packages.getEnabledPackages()) {
@@ -270,9 +373,9 @@ public class Boot {
 			//addJarsForPackage(pack, VERBOSE, plugins);
 			AddJarsForPackageRunnable addJarsForPackage = new AddJarsForPackageRunnable(pack, VERBOSE, plugins);
 			loadingThreadsPackage.add(addJarsForPackage);
-			loadingThreadsPackage.get(loadingThreadsPackage.size()-1).start();
+			loadingThreadsPackage.get(loadingThreadsPackage.size() - 1).start();
 		}
-		
+
 		// wait for each thread to finish the job before continuing
 		for (Thread t : loadingThreadsPackage) {
 			t.join();
@@ -301,10 +404,10 @@ public class Boot {
 			}
 		}
 
-//		for (URL url : sysloader.getURLs()) {
-//			System.err.println("URL = " + url);
-//		}
-		
+		//		for (URL url : sysloader.getURLs()) {
+		//			System.err.println("URL = " + url);
+		//		}
+
 		if (VERBOSE == Level.ALL) {
 			System.out.println(">>> Scanning for plugins took " + (System.currentTimeMillis() - startPlugins) / 1000.0
 					+ " seconds");

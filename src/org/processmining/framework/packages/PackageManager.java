@@ -85,7 +85,7 @@ public class PackageManager {
 	 * unavailable will not be written back to the local repo.
 	 */
 	private Map<PackageDescriptor, Boolean> availability;
-
+	
 	/**
 	 * Checks whether a package is still available. This prevents the user from
 	 * installing or updating a package that cannot be installed anymore.

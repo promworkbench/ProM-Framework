@@ -121,13 +121,31 @@ public class PackageConfigPerister {
 		private String curPackageOS;
 		private String curPackageMaintainer;
 		private String curKeywords;
-
+		private URL contextURL;
+		
 		public ConfigHandler(Set<Repository> repositories, Set<PackageDescriptor> available,
 				Set<PackageDescriptor> installed, Canceller canceller) {
 			this.available = available;
 			this.installed = installed;
 			this.repositories = repositories;
 			this.canceller = canceller;
+			
+			/*
+			 * Set a context for the URLs. This allows us to use relative URLs in the repositories.
+			 */
+			String repository = Boot.DEFAULT_REPOSITORY.toString();
+			int lastPathSeparator = repository.lastIndexOf("/");
+			String context = repository.substring(0, lastPathSeparator + 1);
+			try {
+				this.contextURL = new URL(context);
+			} catch (MalformedURLException e) {
+				try {
+					this.contextURL = new URL("http://www.promtools.org/prom6/packages/");
+				} catch (MalformedURLException e2) {
+					assert(false);
+				}
+			}
+			System.out.println("[PackageConfigPerister] Context URL set to " + this.contextURL);
 		}
 
 		@Override
@@ -145,7 +163,10 @@ public class PackageConfigPerister {
 
 					if ((url != null) && (url.trim().length() > 0)) {
 						try {
-							curRepo = new Repository(new URL(url.trim()));
+							/*
+							 * Use the context for URLs.
+							 */
+							curRepo = new Repository(new URL(contextURL, url.trim()));
 						} catch (MalformedURLException e) {
 							System.err.println("Invalid URL for repository, skipping: " + url);
 						}
@@ -171,7 +192,17 @@ public class PackageConfigPerister {
 							(url != null) && (url.trim().length() > 0)) {
 						curPackageName = name;
 						curPackageVersion = version;
-						curPackageURL = url;
+						try {
+							/*
+							 * Use the context for URLs.
+							 */
+							curPackageURL = new URL(contextURL, url).toString();
+						} catch (MalformedURLException e) {
+							/*
+							 * Use of context not possible. As before.
+							 */
+							curPackageURL = url;
+						}
 						curPackageOS = os;
 						curLogoURL = logo == null ? "" : logo;
 						curPackageDesc = desc == null ? "" : desc;
