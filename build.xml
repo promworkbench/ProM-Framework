@@ -147,7 +147,7 @@
 			</exec>
 			<echo file="${release}/packages.xml">
 					&lt;packages&gt;
-						&lt;package name="${project}" version="${version}" os="${os}" url="http://www.promtools.org/prom6/packages/${project}/${project}-${version}-${os}.zip" desc="${description}" org="${organization}" license="${license}" author="${author}" auto="false" hasPlugins="true" logo="${logo}"&gt;
+						&lt;package name="${project}" version="${version}" os="${os}" url="${project}/${project}-${version}-${os}.zip" desc="${description}" org="${organization}" license="${license}" author="${author}" auto="false" hasPlugins="true" logo="${logo}"&gt;
 				</echo>
 			<concat destfile="${release}/packages.xml" append="true">
 				<filelist files="ivypack.xml" />
