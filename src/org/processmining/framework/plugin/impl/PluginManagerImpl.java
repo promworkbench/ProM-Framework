@@ -9,7 +9,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -30,7 +29,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
 import javax.swing.event.EventListenerList;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.processmining.framework.boot.Boot;
 import org.processmining.framework.boot.Boot.Level;
@@ -46,8 +44,6 @@ import org.processmining.framework.plugin.annotations.Plugin;
 import org.processmining.framework.plugin.annotations.PluginVariant;
 import org.processmining.framework.util.Pair;
 import org.processmining.framework.util.collection.ComparablePair;
-import org.w3c.dom.DOMException;
-import org.xml.sax.SAXException;
 
 public final class PluginManagerImpl implements PluginManager {
 
@@ -141,13 +137,13 @@ public final class PluginManagerImpl implements PluginManager {
 					scanDirectory(file, pack, loader);
 					return;
 				}
-				if (file.getAbsolutePath().endsWith(PluginManager.MCR_EXTENSION)) {
-					try {
-						loadClassFromMacro(url.toURI(), pack);
-					} catch (DependsOnUnknownException e) {
-						// Can't add this URL.
-					}
-				}
+//				if (file.getAbsolutePath().endsWith(PluginManager.MCR_EXTENSION)) {
+//					try {
+//						loadClassFromMacro(url.toURI(), pack);
+//					} catch (DependsOnUnknownException e) {
+//						// Can't add this URL.
+//					}
+//				}
 				if (file.getAbsolutePath().endsWith(JAR_EXTENSION)) {
 					scanUrl(url, pack, loader);
 				}
@@ -183,12 +179,12 @@ public final class PluginManagerImpl implements PluginManager {
 						if (f.getAbsolutePath().endsWith(CLASS_EXTENSION)) {
 							loadClassFromFile(loader, url,
 									makeRelativePath(file.getAbsolutePath(), f.getAbsolutePath()), pack);
-						} else if (f.getAbsolutePath().endsWith(MCR_EXTENSION)) {
-							try {
-								loadClassFromMacro(f.toURI(), pack);
-							} catch (DependsOnUnknownException e) {
-								todo.add(dir);
-							}
+//						} else if (f.getAbsolutePath().endsWith(MCR_EXTENSION)) {
+//							try {
+//								loadClassFromMacro(f.toURI(), pack);
+//							} catch (DependsOnUnknownException e) {
+//								todo.add(dir);
+//							}
 						} else if (f.getAbsolutePath().endsWith(JAR_EXTENSION)) {
 							scanUrl(f.toURI().toURL(), pack, loader);
 						}
@@ -256,26 +252,26 @@ public final class PluginManagerImpl implements PluginManager {
 				pack);
 	}
 
-	private String loadClassFromMacro(URI macroFile, PackageDescriptor pack) throws DependsOnUnknownException {
-		MacroPluginDescriptorImpl plugin = null;
-		try {
-			plugin = new MacroPluginDescriptorImpl(new File(macroFile), this, pack);
-			addPlugin(plugin);
-		} catch (DOMException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (DependsOnUnknownException e) {
-			throw e;
-		}
-		return plugin == null ? null : plugin.getFileName();
-	}
+//	private String loadClassFromMacro(URI macroFile, PackageDescriptor pack) throws DependsOnUnknownException {
+//		MacroPluginDescriptorImpl plugin = null;
+//		try {
+//			plugin = new MacroPluginDescriptorImpl(new File(macroFile), this, pack);
+//			addPlugin(plugin);
+//		} catch (DOMException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (SAXException e) {
+//			e.printStackTrace();
+//		} catch (ParserConfigurationException e) {
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (DependsOnUnknownException e) {
+//			throw e;
+//		}
+//		return plugin == null ? null : plugin.getFileName();
+//	}
 
 	/**
 	 * Returns the name of the class, if it is annotated, or if any of its methods
@@ -375,25 +371,25 @@ public final class PluginManagerImpl implements PluginManager {
 
 	}
 
-	private void addPlugin(MacroPluginDescriptorImpl pl) {
-		PluginDescriptor old = plugins.put(pl.getID(), pl);
-
-		if (old != null) {
-			if (Boot.VERBOSE == Level.ALL) {
-				System.out.println("Found new version of plugin: " + pl.getName() + " ....overwriting.");
-			}
-			annotation2plugins.get(Plugin.class).remove(old);
-		}
-
-		Set<PluginDescriptor> pls = annotation2plugins.get(Plugin.class);
-		if (pls == null) {
-			pls = new TreeSet<PluginDescriptor>();
-			annotation2plugins.put(Plugin.class, pls);
-		}
-		pls.add(pl);
-
-		checkTypesAfterAdd(pl);
-	}
+//	private void addPlugin(MacroPluginDescriptorImpl pl) {
+//		PluginDescriptor old = plugins.put(pl.getID(), pl);
+//
+//		if (old != null) {
+//			if (Boot.VERBOSE == Level.ALL) {
+//				System.out.println("Found new version of plugin: " + pl.getName() + " ....overwriting.");
+//			}
+//			annotation2plugins.get(Plugin.class).remove(old);
+//		}
+//
+//		Set<PluginDescriptor> pls = annotation2plugins.get(Plugin.class);
+//		if (pls == null) {
+//			pls = new TreeSet<PluginDescriptor>();
+//			annotation2plugins.put(Plugin.class, pls);
+//		}
+//		pls.add(pl);
+//
+//		checkTypesAfterAdd(pl);
+//	}
 
 	private void checkTypesAfterAdd(PluginDescriptor pl) {
 		HashSet<Class<?>> newTypes = new HashSet<Class<?>>();

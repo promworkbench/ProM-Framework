@@ -21,9 +21,9 @@ public class PluginDescriptorIDImpl implements PluginDescriptorID {
 		id = pluginClass.getName();
 	}
 
-	public PluginDescriptorIDImpl(MacroPluginDescriptorImpl macroPluginDescriptorImpl) {
-		id = macroPluginDescriptorImpl.getFileName();
-	}
+//	public PluginDescriptorIDImpl(MacroPluginDescriptorImpl macroPluginDescriptorImpl) {
+//		id = macroPluginDescriptorImpl.getFileName();
+//	}
 
 	public String toString() {
 		return id;

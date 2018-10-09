@@ -327,8 +327,24 @@ public class Boot {
 		setReleaseInstalled(PROM_VERSION, RELEASE_PACKAGE);
 	}
 
+	private static int trackingByGAAllowed = 0;
+
 	public static boolean isTrackingByGAAllowed() {
-		return Preferences.userNodeForPackage(Boot.class).get(TRACKING_BY_GA_ALLOWED, "false").equals("true");
+		if (trackingByGAAllowed == 0) {
+			try {
+				// Check whether we have support for GoogleAnalytics.
+				URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+				sysloader.loadClass("com.brsanthu.googleanalytics.GoogleAnalytics");
+				// It seems we do. Use it.
+				trackingByGAAllowed = 1;
+			} catch (ClassNotFoundException ex) {
+				// It seems we do not. Do not use it.
+				trackingByGAAllowed = -1;
+			}
+		}
+		// Return whether we can use GoogleAnalytics.
+		return trackingByGAAllowed == 1;
+		//		return Preferences.userNodeForPackage(Boot.class).get(TRACKING_BY_GA_ALLOWED, "false").equals("true");
 	}
 
 	public static void boot(Class<?> bootClass, Class<? extends PluginContext> pluginContextClass, String... args)
