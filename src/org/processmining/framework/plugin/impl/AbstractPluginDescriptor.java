@@ -146,6 +146,7 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 					// this plugin
 					try {
 						if (Boot.isTrackingByGAAllowed()) {
+							System.out.println("[AbstractPluginDescriptor] Using GoogleAnalytics");
 							(new GoogleAnalyticsUtil()).runPluginEvent(getName(), getPackage() != null ? getPackage().getName() : null);
 						}
 						System.out.println("Start plug-in " + getName());
