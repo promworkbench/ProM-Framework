@@ -119,4 +119,7 @@ public @interface Plugin {
 	 * @return
 	 */
 	PluginLevel level() default PluginLevel.NightlyBuild;
+	
+	String icon() default "";
+	String url() default "";
 }

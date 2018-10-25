@@ -1,8 +1,11 @@
 package org.processmining.framework.plugin;
 
 import java.lang.annotation.Annotation;
+import java.net.URL;
 import java.util.List;
 import java.util.Set;
+
+import javax.swing.ImageIcon;
 
 import org.processmining.framework.packages.PackageDescriptor;
 
@@ -358,4 +361,9 @@ public interface PluginDescriptor extends Comparable<PluginDescriptor> {
 	 * @return whether this plug-in meets the level threshold
 	 */
 	boolean meetsLevelThreshold();
+	
+	public ImageIcon getIcon();
+	
+	public URL getURL();
+
 }

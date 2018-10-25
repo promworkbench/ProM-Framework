@@ -4,12 +4,17 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import javax.swing.ImageIcon;
 
 import org.processmining.framework.boot.Boot;
 import org.processmining.framework.packages.PackageDescriptor;
@@ -43,6 +48,11 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 	private PluginCategory[] categories;
 	private PluginQuality quality;
 	private PluginLevel level;
+	private ImageIcon icon;
+	private URL url;
+	
+	private final static Map<String, ImageIcon> icons = new HashMap<String, ImageIcon>();
+	private final static Map<String, URL> urls = new HashMap<String, URL>();
 	
 	PluginDescriptorImpl(Method method, PackageDescriptor pack) throws Exception {
 		assert (method != null);
@@ -69,6 +79,21 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 		categories = method.getAnnotation(Plugin.class).categories();
 		quality = method.getAnnotation(Plugin.class).quality();
 		level = method.getAnnotation(Plugin.class).level();
+		
+		String iconString = method.getAnnotation(Plugin.class).icon();
+		icon = icons.get(iconString);
+		if (icon == null) {
+			icon = iconString.isEmpty() ? null : new ImageIcon(new URL(iconString));
+			icons.put(iconString,  icon);
+		}
+		
+		String urlString = method.getAnnotation(Plugin.class).url();
+		url = urls.get(urlString);
+		if (url == null) {
+			url = urlString.isEmpty() ? null : new URL(urlString);
+			urls.put(urlString,  url);
+		}
+		
 		//		System.out.println("PluginDescriptorImpl,\"" + name + "\",\"" + (pack == null ? "" : pack.getName()) + "\"");
 
 		parameterNames = Arrays.asList(getAnnotation(Plugin.class).parameterLabels());
@@ -493,5 +518,13 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 
 	public boolean meetsLevelThreshold() {
 		return Boot.PLUGIN_LEVEL_THRESHOLD.getValue() <= level.getValue();
+	}
+	
+	public ImageIcon getIcon() {
+		return icon;
+	}
+	
+	public URL getURL() {
+		return url;
 	}
 }
