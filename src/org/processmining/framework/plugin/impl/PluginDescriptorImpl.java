@@ -81,15 +81,22 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 		level = method.getAnnotation(Plugin.class).level();
 		
 		String iconString = method.getAnnotation(Plugin.class).icon();
-		icon = icons.get(iconString);
-		if (icon == null) {
+		if (icons.containsKey(iconString)) {
+			icon = icons.get(iconString);
+		} else {
 			icon = iconString.isEmpty() ? null : new ImageIcon(new URL(iconString));
+			if (icon != null) {
+				System.out.println("[PluginDescriptorImpl] Found icon at " + iconString);
+			} else {
+				System.out.println("[PluginDescriptorImpl] Found no icon at " + iconString);
+			}
 			icons.put(iconString,  icon);
 		}
 		
 		String urlString = method.getAnnotation(Plugin.class).url();
-		url = urls.get(urlString);
-		if (url == null) {
+		if (urls.containsKey(urlString)) {
+			url = urls.get(urlString);
+		} else {
 			url = urlString.isEmpty() ? null : new URL(urlString);
 			urls.put(urlString,  url);
 		}
@@ -158,6 +165,27 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 		level = type.getAnnotation(Plugin.class).level();
 		//		System.out.println("PluginDescriptorImpl,\"" + name + "\",\"" + (pack == null ? "" : pack.getName()) + "\"");
 
+		String iconString = type.getAnnotation(Plugin.class).icon();
+		if (icons.containsKey(iconString)) {
+			icon = icons.get(iconString);
+		} else {
+			icon = iconString.isEmpty() ? null : new ImageIcon(new URL(iconString));
+			if (icon != null) {
+				System.out.println("[PluginDescriptorImpl] Found icon at " + iconString);
+			} else {
+				System.out.println("[PluginDescriptorImpl] Found no icon at " + iconString);
+			}
+			icons.put(iconString,  icon);
+		}
+		
+		String urlString = type.getAnnotation(Plugin.class).url();
+		if (urls.containsKey(urlString)) {
+			url = urls.get(urlString);
+		} else {
+			url = urlString.isEmpty() ? null : new URL(urlString);
+			urls.put(urlString,  url);
+		}
+		
 		// There are either no parameters, or all parameters are required at least once
 		// in all variants, ignoring the specific context.
 		//
