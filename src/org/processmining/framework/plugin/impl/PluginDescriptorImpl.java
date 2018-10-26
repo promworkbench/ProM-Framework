@@ -53,10 +53,10 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 	private PluginLevel level;
 	private ImageIcon icon;
 	private URL url;
-	
+
 	private final static Map<String, ImageIcon> icons = new HashMap<String, ImageIcon>();
 	private final static Map<String, URL> urls = new HashMap<String, URL>();
-	
+
 	PluginDescriptorImpl(Method method, PackageDescriptor pack) throws Exception {
 		assert (method != null);
 		assert (method.isAnnotationPresent(Plugin.class));
@@ -82,7 +82,7 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 		categories = method.getAnnotation(Plugin.class).categories();
 		quality = method.getAnnotation(Plugin.class).quality();
 		level = method.getAnnotation(Plugin.class).level();
-		
+
 		String iconString = method.getAnnotation(Plugin.class).icon();
 		if (icons.containsKey(iconString)) {
 			icon = icons.get(iconString);
@@ -93,17 +93,17 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 			} else {
 				System.out.println("[PluginDescriptorImpl] Found no icon at " + iconString);
 			}
-			icons.put(iconString,  icon);
+			icons.put(iconString, icon);
 		}
-		
+
 		String urlString = method.getAnnotation(Plugin.class).url();
 		if (urls.containsKey(urlString)) {
 			url = urls.get(urlString);
 		} else {
 			url = urlString.isEmpty() ? null : new URL(urlString);
-			urls.put(urlString,  url);
+			urls.put(urlString, url);
 		}
-		
+
 		//		System.out.println("PluginDescriptorImpl,\"" + name + "\",\"" + (pack == null ? "" : pack.getName()) + "\"");
 
 		parameterNames = Arrays.asList(getAnnotation(Plugin.class).parameterLabels());
@@ -179,30 +179,31 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 					.getResourceAsStream("images/" + iconString);
 			if (url == null) {
 				icon = null;
-			}
-			try {
-				icon = new ImageIcon(ImageIO.read(url));
-			} catch (IOException e) {
-				icon = null;
+			} else {
+				try {
+					icon = new ImageIcon(ImageIO.read(url));
+				} catch (IOException e) {
+					icon = null;
+				}
 			}
 
-//			icon = iconString.isEmpty() ? null : new ImageIcon(new URL(iconString));
+			//			icon = iconString.isEmpty() ? null : new ImageIcon(new URL(iconString));
 			if (icon != null) {
 				System.out.println("[PluginDescriptorImpl] Found icon at " + iconString);
 			} else {
 				System.out.println("[PluginDescriptorImpl] Found no icon at " + iconString);
 			}
-			icons.put(iconString,  icon);
+			icons.put(iconString, icon);
 		}
-		
+
 		String urlString = type.getAnnotation(Plugin.class).url();
 		if (urls.containsKey(urlString)) {
 			url = urls.get(urlString);
 		} else {
 			url = urlString.isEmpty() ? null : new URL(urlString);
-			urls.put(urlString,  url);
+			urls.put(urlString, url);
 		}
-		
+
 		// There are either no parameters, or all parameters are required at least once
 		// in all variants, ignoring the specific context.
 		//
@@ -551,7 +552,7 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 
 	public String[] getCategories() {
 		String[] categoryLabels = new String[this.categories.length];
-		for(int i = 0; i < this.categories.length; i++){
+		for (int i = 0; i < this.categories.length; i++) {
 			categoryLabels[i] = this.categories[i].getName();//.getName();
 		}
 		return categoryLabels;
@@ -564,11 +565,11 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 	public boolean meetsLevelThreshold() {
 		return Boot.PLUGIN_LEVEL_THRESHOLD.getValue() <= level.getValue();
 	}
-	
+
 	public ImageIcon getIcon() {
 		return icon;
 	}
-	
+
 	public URL getURL() {
 		return url;
 	}
