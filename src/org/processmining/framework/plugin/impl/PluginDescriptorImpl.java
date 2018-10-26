@@ -1,5 +1,7 @@
 package org.processmining.framework.plugin.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import org.processmining.framework.boot.Boot;
@@ -169,7 +172,21 @@ public class PluginDescriptorImpl extends AbstractPluginDescriptor {
 		if (icons.containsKey(iconString)) {
 			icon = icons.get(iconString);
 		} else {
-			icon = iconString.isEmpty() ? null : new ImageIcon(new URL(iconString));
+			/*
+			 * Read the icon from a lib/images folder.
+			 */
+			InputStream url = Thread.currentThread().getContextClassLoader()
+					.getResourceAsStream("images/" + iconString);
+			if (url == null) {
+				icon = null;
+			}
+			try {
+				icon = new ImageIcon(ImageIO.read(url));
+			} catch (IOException e) {
+				icon = null;
+			}
+
+//			icon = iconString.isEmpty() ? null : new ImageIcon(new URL(iconString));
 			if (icon != null) {
 				System.out.println("[PluginDescriptorImpl] Found icon at " + iconString);
 			} else {
