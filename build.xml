@@ -13,7 +13,7 @@
 	<property name="author" value="H.M.W. Verbeek" />
 	<property name="organization" value="Eindhoven University of Technology" />
 	<property name="description" value="ProM-Framework" />
-	<property name="license" value="GPL" />
+	<property name="license" value="ProM" />
 	<property name="logo" value="prom_subtitle_hat_300.png" />
 
 	<property name="ivy.lib.dir" value="ivy" />
