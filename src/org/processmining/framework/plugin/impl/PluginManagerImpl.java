@@ -69,7 +69,8 @@ public final class PluginManagerImpl implements PluginManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.processmining.framework.plugin.PluginManager#addErrorListener(org
+	 * @see
+	 * org.processmining.framework.plugin.PluginManager#addErrorListener(org
 	 * .processmining.framework.plugin.PluginManagerImpl.ErrorListener)
 	 */
 	public void addListener(PluginManagerListener listener) {
@@ -88,7 +89,8 @@ public final class PluginManagerImpl implements PluginManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.processmining.framework.plugin.PluginManager#removeErrorListener(
+	 * @see
+	 * org.processmining.framework.plugin.PluginManager#removeErrorListener(
 	 * org.processmining.framework.plugin.PluginManagerImpl.ErrorListener)
 	 */
 	public void removeListener(PluginManagerListener listener) {
@@ -121,7 +123,8 @@ public final class PluginManagerImpl implements PluginManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.processmining.framework.plugin.PluginManager#register(java.net.URL)
+	 * @see
+	 * org.processmining.framework.plugin.PluginManager#register(java.net.URL)
 	 */
 	public void register(URL url, PackageDescriptor pack) {
 		URLClassLoader loader = new URLClassLoader(new URL[] { url });
@@ -137,13 +140,13 @@ public final class PluginManagerImpl implements PluginManager {
 					scanDirectory(file, pack, loader);
 					return;
 				}
-//				if (file.getAbsolutePath().endsWith(PluginManager.MCR_EXTENSION)) {
-//					try {
-//						loadClassFromMacro(url.toURI(), pack);
-//					} catch (DependsOnUnknownException e) {
-//						// Can't add this URL.
-//					}
-//				}
+				//				if (file.getAbsolutePath().endsWith(PluginManager.MCR_EXTENSION)) {
+				//					try {
+				//						loadClassFromMacro(url.toURI(), pack);
+				//					} catch (DependsOnUnknownException e) {
+				//						// Can't add this URL.
+				//					}
+				//				}
 				if (file.getAbsolutePath().endsWith(JAR_EXTENSION)) {
 					scanUrl(url, pack, loader);
 				}
@@ -179,12 +182,12 @@ public final class PluginManagerImpl implements PluginManager {
 						if (f.getAbsolutePath().endsWith(CLASS_EXTENSION)) {
 							loadClassFromFile(loader, url,
 									makeRelativePath(file.getAbsolutePath(), f.getAbsolutePath()), pack);
-//						} else if (f.getAbsolutePath().endsWith(MCR_EXTENSION)) {
-//							try {
-//								loadClassFromMacro(f.toURI(), pack);
-//							} catch (DependsOnUnknownException e) {
-//								todo.add(dir);
-//							}
+							//						} else if (f.getAbsolutePath().endsWith(MCR_EXTENSION)) {
+							//							try {
+							//								loadClassFromMacro(f.toURI(), pack);
+							//							} catch (DependsOnUnknownException e) {
+							//								todo.add(dir);
+							//							}
 						} else if (f.getAbsolutePath().endsWith(JAR_EXTENSION)) {
 							scanUrl(f.toURI().toURL(), pack, loader);
 						}
@@ -252,30 +255,30 @@ public final class PluginManagerImpl implements PluginManager {
 				pack);
 	}
 
-//	private String loadClassFromMacro(URI macroFile, PackageDescriptor pack) throws DependsOnUnknownException {
-//		MacroPluginDescriptorImpl plugin = null;
-//		try {
-//			plugin = new MacroPluginDescriptorImpl(new File(macroFile), this, pack);
-//			addPlugin(plugin);
-//		} catch (DOMException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (SAXException e) {
-//			e.printStackTrace();
-//		} catch (ParserConfigurationException e) {
-//			e.printStackTrace();
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (DependsOnUnknownException e) {
-//			throw e;
-//		}
-//		return plugin == null ? null : plugin.getFileName();
-//	}
+	//	private String loadClassFromMacro(URI macroFile, PackageDescriptor pack) throws DependsOnUnknownException {
+	//		MacroPluginDescriptorImpl plugin = null;
+	//		try {
+	//			plugin = new MacroPluginDescriptorImpl(new File(macroFile), this, pack);
+	//			addPlugin(plugin);
+	//		} catch (DOMException e) {
+	//			e.printStackTrace();
+	//		} catch (IOException e) {
+	//			e.printStackTrace();
+	//		} catch (SAXException e) {
+	//			e.printStackTrace();
+	//		} catch (ParserConfigurationException e) {
+	//			e.printStackTrace();
+	//		} catch (ClassNotFoundException e) {
+	//			e.printStackTrace();
+	//		} catch (DependsOnUnknownException e) {
+	//			throw e;
+	//		}
+	//		return plugin == null ? null : plugin.getFileName();
+	//	}
 
 	/**
-	 * Returns the name of the class, if it is annotated, or if any of its methods
-	 * carries a plugin annotation!
+	 * Returns the name of the class, if it is annotated, or if any of its
+	 * methods carries a plugin annotation!
 	 * 
 	 * @param loader
 	 * @param url
@@ -349,47 +352,57 @@ public final class PluginManagerImpl implements PluginManager {
 	private void addPlugin(PluginDescriptorImpl pl) {
 		PluginDescriptorImpl old = (PluginDescriptorImpl) plugins.put(pl.getID(), pl);
 
-		if (old != null) {
-			if (Boot.VERBOSE == Level.ALL) {
-				System.out.println("Found new version of plugin: " + pl.getName() + " ....overwriting.");
+		/*
+		 * HV 20181130
+		 * Sometimes, ProM seems to freeze when started after having updated or installed packages.
+		 * However, instead of freezing it seems to be in a busy wait due to an endless loop related
+		 * to the annotation2plunis variable. Somehow, it loops endlessly over a set in this map.
+		 * Apparently, this set is corrupted somehow. Possibly, the code below is not reentrant.
+		 * Therefore, I've added the synchronized on the variable.
+		 */
+		synchronized (annotation2plugins) {
+			if (old != null) {
+				if (Boot.VERBOSE == Level.ALL) {
+					System.out.println("Found new version of plugin: " + pl.getName() + " ....overwriting.");
+				}
+				for (Annotation annotation : old.getAnnotatedElement().getAnnotations()) {
+					annotation2plugins.get(annotation.annotationType()).remove(old);
+				}
 			}
-			for (Annotation annotation : old.getAnnotatedElement().getAnnotations()) {
-				annotation2plugins.get(annotation.annotationType()).remove(old);
-			}
-		}
 
-		for (Annotation annotation : pl.getAnnotatedElement().getAnnotations()) {
-			Set<PluginDescriptor> pls = annotation2plugins.get(annotation.annotationType());
-			if (pls == null) {
-				pls = new TreeSet<PluginDescriptor>();
-				annotation2plugins.put(annotation.annotationType(), pls);
-			}
-			pls.add(pl);
+			for (Annotation annotation : pl.getAnnotatedElement().getAnnotations()) {
+				Set<PluginDescriptor> pls = annotation2plugins.get(annotation.annotationType());
+				if (pls == null) {
+					pls = new TreeSet<PluginDescriptor>();
+					annotation2plugins.put(annotation.annotationType(), pls);
+				}
+				pls.add(pl);
 
+			}
 		}
 		checkTypesAfterAdd(pl);
 
 	}
 
-//	private void addPlugin(MacroPluginDescriptorImpl pl) {
-//		PluginDescriptor old = plugins.put(pl.getID(), pl);
-//
-//		if (old != null) {
-//			if (Boot.VERBOSE == Level.ALL) {
-//				System.out.println("Found new version of plugin: " + pl.getName() + " ....overwriting.");
-//			}
-//			annotation2plugins.get(Plugin.class).remove(old);
-//		}
-//
-//		Set<PluginDescriptor> pls = annotation2plugins.get(Plugin.class);
-//		if (pls == null) {
-//			pls = new TreeSet<PluginDescriptor>();
-//			annotation2plugins.put(Plugin.class, pls);
-//		}
-//		pls.add(pl);
-//
-//		checkTypesAfterAdd(pl);
-//	}
+	//	private void addPlugin(MacroPluginDescriptorImpl pl) {
+	//		PluginDescriptor old = plugins.put(pl.getID(), pl);
+	//
+	//		if (old != null) {
+	//			if (Boot.VERBOSE == Level.ALL) {
+	//				System.out.println("Found new version of plugin: " + pl.getName() + " ....overwriting.");
+	//			}
+	//			annotation2plugins.get(Plugin.class).remove(old);
+	//		}
+	//
+	//		Set<PluginDescriptor> pls = annotation2plugins.get(Plugin.class);
+	//		if (pls == null) {
+	//			pls = new TreeSet<PluginDescriptor>();
+	//			annotation2plugins.put(Plugin.class, pls);
+	//		}
+	//		pls.add(pl);
+	//
+	//		checkTypesAfterAdd(pl);
+	//	}
 
 	private void checkTypesAfterAdd(PluginDescriptor pl) {
 		HashSet<Class<?>> newTypes = new HashSet<Class<?>>();
@@ -612,7 +625,8 @@ public final class PluginManagerImpl implements PluginManager {
 		for (PluginDescriptor plugin : pls) {
 			if (mustBeUserVisible && (!plugin.meetsQualityThreshold() || !plugin.meetsLevelThreshold())) {
 				/*
-				 * Plug-in does not meet some required threshold to do so. Ignore it.
+				 * Plug-in does not meet some required threshold to do so.
+				 * Ignore it.
 				 */
 				continue;
 			}
@@ -662,7 +676,8 @@ public final class PluginManagerImpl implements PluginManager {
 		for (PluginDescriptor plugin : pls) {
 			if (mustBeUserVisible && (!plugin.meetsQualityThreshold() || !plugin.meetsLevelThreshold())) {
 				/*
-				 * Plug-in does not meet some required threshold to do so. Ignore it.
+				 * Plug-in does not meet some required threshold to do so.
+				 * Ignore it.
 				 */
 				continue;
 			}
@@ -784,8 +799,8 @@ public final class PluginManagerImpl implements PluginManager {
 			boolean visible = plugin.isUserAccessible();
 			if (mustBeUserVisible && (!plugin.meetsQualityThreshold() || !plugin.meetsLevelThreshold())) {
 				/*
-				 * Plug-in can be user visible (that is, should end up in the GUI), but does not
-				 * meet some required threshold. Ignore it.
+				 * Plug-in can be user visible (that is, should end up in the
+				 * GUI), but does not meet some required threshold. Ignore it.
 				 */
 				continue;
 			}
