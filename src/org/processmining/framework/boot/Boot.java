@@ -295,9 +295,9 @@ public class Boot {
 						}
 					}
 				} catch (MalformedURLException e) {
-					System.err.println("[Boot] URL error with repository " + repositories[i] + ": " + e.getMessage());
+					System.err.println("[Boot] URL error with repository " + repositories[i < 0 ? 0 : i] + ": " + e.getMessage());
 				} catch (IOException e) {
-					System.err.println("[Boot] I/O error with repository " + repositories[i] + ": " + e.getMessage());
+					System.err.println("[Boot] I/O error with repository " + repositories[i < 0 ? 0 : 1] + ": " + e.getMessage());
 				}
 			}
 			/*
