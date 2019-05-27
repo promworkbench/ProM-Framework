@@ -103,8 +103,10 @@ public abstract class AbstractConnection implements Connection {
 	}
 
 	public boolean isRemoved() {
+//		System.gc(); // By doing this, object are removed earlier from the workspace.
 		for (Map.Entry<String, WeakReference<?>> t : mapping.entrySet()) {
 			Object o = t.getValue().get();
+//			System.out.println("[AbstractionConnection] isRemoved " + this.getClass().getName() + "@" + t.getKey() + ": " + o);			
 			if (o == null) {
 				return true;
 			}
