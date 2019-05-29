@@ -270,10 +270,24 @@ public class Boot {
 					 */
 					InputStream stream = conn.getInputStream();
 					/*
-					 * Try to read the first character on the stream.
+					 * Try to read some first characters on the stream.
 					 */
 					long time = -System.nanoTime();
-					stream.read();
+					for (int j = 0; j < 10; j++) {
+						stream.read();
+					}
+					time += System.nanoTime();
+					/*
+					 * Do not weigh this time too much, to take setup times into account.
+					 */
+					time /= 1000;
+					/*
+					 * Try to read some additional characters on the stream.
+					 */
+					time -= System.nanoTime();
+					for (int j = 0; j < 1000; j++) {
+						stream.read();
+					}
 					time += System.nanoTime();
 					/*
 					 * Stream can now be closed.
