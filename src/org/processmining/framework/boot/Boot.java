@@ -273,7 +273,7 @@ public class Boot {
 					 * Try to read some first characters on the stream.
 					 */
 					long timeA = -System.nanoTime();
-					for (int j = 0; j < 10; j++) {
+					for (int j = 0; j < 1000; j++) {
 						stream.read();
 					}
 					timeA += System.nanoTime();
@@ -282,13 +282,13 @@ public class Boot {
 					 * Try to read some additional characters on the stream.
 					 */
 					long timeB = -System.nanoTime();
-					for (int j = 0; j < 1000; j++) {
+					for (int j = 0; j < 100000; j++) {
 						stream.read();
 					}
 					timeB += System.nanoTime();
 					System.out.println("[Boot] Time B = " + timeB);
 					
-					long score = (timeA / 1000) + timeB;
+					long score = timeA + timeB;
 					/*
 					 * Stream can now be closed.
 					 */
