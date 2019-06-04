@@ -244,7 +244,7 @@ public class Boot {
 			 * one that responds the fastest.
 			 */
 			bestRepository = null;
-			long bestTime = 0;
+			long bestScore = 0;
 			/*
 			 * Have a 'dry run' with i = -1, which actually connects to the
 			 * first repository.
@@ -272,23 +272,23 @@ public class Boot {
 					/*
 					 * Try to read some first characters on the stream.
 					 */
-					long time = -System.nanoTime();
+					long timeA = -System.nanoTime();
 					for (int j = 0; j < 10; j++) {
 						stream.read();
 					}
-					time += System.nanoTime();
-					/*
-					 * Do not weigh this time too much, to take setup times into account.
-					 */
-					time /= 1000;
+					timeA += System.nanoTime();
+					System.out.println("[Boot] Time A = " + timeA);
 					/*
 					 * Try to read some additional characters on the stream.
 					 */
-					time -= System.nanoTime();
+					long timeB = -System.nanoTime();
 					for (int j = 0; j < 1000; j++) {
 						stream.read();
 					}
-					time += System.nanoTime();
+					timeB += System.nanoTime();
+					System.out.println("[Boot] Time B = " + timeB);
+					
+					long score = (timeA / 1000) + timeB;
 					/*
 					 * Stream can now be closed.
 					 */
@@ -297,14 +297,14 @@ public class Boot {
 					 * If not a dry run, see whether this repository is better.
 					 */
 					if (i >= 0) {
-						System.out.println("[Boot] Repository " + repositories[i] + " took " + time + " nanoseconds.");
+						System.out.println("[Boot] Repository " + repositories[i] + " socres " + score + ".");
 						/*
-						 * Update the best repository and the best time, if
+						 * Update the best repository and the best score, if
 						 * needed.
 						 */
-						if (bestRepository == null || time < bestTime) {
+						if (bestRepository == null || score < bestScore) {
 							bestRepository = repositories[i];
-							bestTime = time;
+							bestScore = score;
 							System.out.println("[Boot] New best repository " + repositories[i]);
 						}
 					}
