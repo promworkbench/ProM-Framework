@@ -12,7 +12,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.prefs.Preferences;
 
@@ -380,6 +382,14 @@ public class Boot {
 		 * (berti) Made "addJarsForPackage" method as thread to use parallelism
 		 */
 		List<Thread> loadingThreadsPackage = new ArrayList<Thread>();
+		
+		/*
+		 * (hverbeek) Added required synchronization between dependent packages.
+		 * 
+		 * Map the name of every pack to its index in the array of threads.
+		 */
+		Map<String, Integer> packIndices = new HashMap<String, Integer>();
+		
 		for (PackageDescriptor pack : packages.getEnabledPackages()) {
 			if (VERBOSE == Level.ALL) {
 				System.out.println("Processing Package: " + pack.getName());
@@ -387,7 +397,27 @@ public class Boot {
 			//addJarsForPackage(pack, VERBOSE, plugins);
 			AddJarsForPackageRunnable addJarsForPackage = new AddJarsForPackageRunnable(pack, VERBOSE, plugins);
 			loadingThreadsPackage.add(addJarsForPackage);
-			loadingThreadsPackage.get(loadingThreadsPackage.size() - 1).start();
+			
+			/*
+			 * Get and set the pack index.
+			 */
+			int packIndex = loadingThreadsPackage.indexOf(addJarsForPackage);
+			packIndices.put(pack.getName(), packIndex);
+			
+			/*
+			 * Wait for all packages that this pack depends on to have been loaded.
+			 */
+			for (String depPack : pack.getDependencies()) {
+				loadingThreadsPackage.get(packIndices.get(depPack)).join();
+			}
+			
+			/*
+			 * All packages that this pack depends on have been loaded, we can now start loading pack.
+			 */
+			if (VERBOSE == Level.ALL) {
+				System.out.println("Start loading Package: " + pack.getName());
+			}
+			loadingThreadsPackage.get(packIndex).start();
 		}
 
 		// wait for each thread to finish the job before continuing
