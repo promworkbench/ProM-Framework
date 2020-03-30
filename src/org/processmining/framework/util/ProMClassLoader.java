@@ -1,5 +1,6 @@
 package org.processmining.framework.util;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -25,8 +26,9 @@ public class ProMClassLoader extends URLClassLoader {
 		URL[] urls = new URL[paths.length];
 		for (int i = 0; i < paths.length; i++) {
 			try {
-				urls[i] = new URL("file:///" + paths[i]);
-				System.out.println("[PromClassLoader] found in classpath: " + urls[i]);
+				// Convert this path into a proper URL. 
+				urls[i] = new File(paths[i]).toURI().toURL();
+				System.out.println("[ProMClassLoader] found in classpath: " + urls[i]);
 			} catch (MalformedURLException e) {
 				System.err.println("[ProMClassLoader] " + e.getMessage());
 			}
