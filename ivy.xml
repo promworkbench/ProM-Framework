@@ -25,7 +25,7 @@
        <dependency conf="lib->default" org="prom-libs" name="jargs" rev="latest" changing="false" transitive="false" />
        
        <!-- dev.java.net "Other" license -->
-       <dependency conf="lib->default" org="prom-libs" name="TableLayout" rev="20050920"/>
+       <dependency conf="lib->default" org="tablelayout" name="TableLayout" rev="20050920"/>
        
        <!-- MIT license -->
 	   <dependency conf="lib->default" org="org.slf4j" name="slf4j-api" rev="1.7.25" changing="false" transitive="false"/>	
