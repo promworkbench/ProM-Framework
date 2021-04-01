@@ -1,5 +1,6 @@
 package org.processmining.framework.plugin.impl;
 
+import java.awt.GraphicsEnvironment;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -192,7 +193,11 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 							get();
 							context.getPluginLifeCycleEventListeners().firePluginCompleted(context);
 						} catch (Exception e) {
-							JOptionPane.showMessageDialog(null, "Exception happened: "+e.getMessage());
+							if (GraphicsEnvironment.isHeadless()) {
+								System.err.println("Exception happened: "+e.getMessage());
+							} else {
+								JOptionPane.showMessageDialog(null, "Exception happened: "+e.getMessage());
+							}
 							context.getPluginLifeCycleEventListeners().firePluginTerminatedWithError(context, e);
 							context.log(e);
 						}
