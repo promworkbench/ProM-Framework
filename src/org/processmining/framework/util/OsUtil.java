@@ -9,10 +9,6 @@ import javax.management.ObjectName;
 
 import org.processmining.framework.boot.Boot;
 
-import sun.management.ManagementFactoryHelper;
-
-import com.sun.management.OperatingSystemMXBean;
-
 public class OsUtil {
 
 	public static final String OS_WIN32 = "Windows 32 bit";
@@ -173,13 +169,13 @@ public class OsUtil {
 	}
 
 	public static long getPhysicalMemory() {
-		try {
-			OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactoryHelper
-					.getOperatingSystemMXBean();
-			return operatingSystemMXBean.getTotalPhysicalMemorySize();
-		} catch (Exception e) {
-			// Does not work, try something else.
-		}
+//		try {
+//			OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactoryHelper
+//					.getOperatingSystemMXBean();
+//			return operatingSystemMXBean.getTotalPhysicalMemorySize();
+//		} catch (Exception e) {
+//			// Does not work, try something else.
+//		}
 		try {
 			MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
 			Object attribute = mBeanServer.getAttribute(new ObjectName("java.lang", "type", "OperatingSystem"),
