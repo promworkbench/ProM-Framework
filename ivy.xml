@@ -17,9 +17,9 @@
        <dependency conf="lib->default" org="com.brsanthu" name="google-analytics-java" rev="1.1.2" changing="false" transitive="false" />
        <dependency conf="lib->default" org="org.apache.httpcomponents" name="httpclient" rev="4.5.3" changing="false" transitive="false"/> 
 	   <dependency conf="lib->default" org="org.apache.httpcomponents" name="httpcore" rev="4.4.6" changing="false" transitive="false"/>    
-	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-api" rev="2.8.1" changing="false" transitive="false"/>
-	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-core" rev="2.8.1" changing="false" transitive="false"/>
-	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.8.1" changing="false" transitive="false"/>
+	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-api" rev="2.16.0" changing="false" transitive="false"/>
+	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-core" rev="2.16.0" changing="false" transitive="false"/>
+	   <dependency conf="lib->default" org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.16.0" changing="false" transitive="false"/>
        
        <!-- BSD license -->
        <dependency conf="lib->default" org="prom-libs" name="jargs" rev="latest" changing="false" transitive="false" />
