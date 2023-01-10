@@ -12,7 +12,6 @@ import java.util.concurrent.TimeoutException;
 
 import javax.swing.JOptionPane;
 
-import org.processmining.framework.boot.Boot;
 import org.processmining.framework.plugin.InSufficientResultException;
 import org.processmining.framework.plugin.PluginContext;
 import org.processmining.framework.plugin.PluginDescriptor;
@@ -20,7 +19,6 @@ import org.processmining.framework.plugin.PluginExecutionResult;
 import org.processmining.framework.plugin.ProMFuture;
 import org.processmining.framework.plugin.RecursiveCallException;
 import org.processmining.framework.plugin.events.Logger.MessageLevel;
-import org.processmining.framework.util.GoogleAnalyticsUtil;
 
 public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 
@@ -146,10 +144,6 @@ public abstract class AbstractPluginDescriptor implements PluginDescriptor {
 					// are forwarded, so start the computation of
 					// this plugin
 					try {
-						if (Boot.isTrackingByGAAllowed()) {
-							System.out.println("[AbstractPluginDescriptor] Using GoogleAnalytics");
-							(new GoogleAnalyticsUtil()).runPluginEvent(getName(), getPackage() != null ? getPackage().getName() : null);
-						}
 						System.out.println("Start plug-in " + getName());
 						long time = -System.currentTimeMillis();
 						Object[] result = execute(context, methodIndex, allArgs);

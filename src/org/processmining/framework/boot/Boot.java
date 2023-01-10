@@ -60,7 +60,6 @@ public class Boot {
 
 	public final static String LAST_RELEASE_AUTOINSTALLED_KEY = "last_release_autoinstalled";
 	public static final String LAST_RELEASE_PACKAGE_KEY = "last_release_package_installed";
-	public final static String TRACKING_BY_GA_ALLOWED = "tracking_by_GA_allowed";
 
 	/**
 	 * Versions of ProM.Lite should have a PROM_VERSION in the ini file that
@@ -341,10 +340,6 @@ public class Boot {
 
 	public static void setLatestReleaseInstalled() {
 		setReleaseInstalled(PROM_VERSION, RELEASE_PACKAGE);
-	}
-
-	public static boolean isTrackingByGAAllowed() {
-		return Preferences.userNodeForPackage(Boot.class).get(TRACKING_BY_GA_ALLOWED, "false").equals("true");
 	}
 
 	public static void boot(Class<?> bootClass, Class<? extends PluginContext> pluginContextClass, String... args)
