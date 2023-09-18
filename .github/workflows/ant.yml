@@ -26,4 +26,8 @@ jobs:
       env:
         bytecode_format: ${{ vars.BYTECODE_FORMAT }}
         major_minor: ${{ vars.MAJOR_MINOR }}
-        
+    - name: Upload build result
+      uses: actions/upload-artifact@v3
+      with:
+        name: release
+        path: bindist/
