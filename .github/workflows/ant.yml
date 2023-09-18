@@ -21,9 +21,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Install Ivy
-      run: |
-        wget  -O /tmp/apache-ivy.tar.gz https://dlcdn.apache.org//ant/ivy/2.5.2/apache-ivy-2.5.2-bin-with-deps.tar.gz
-        tar -xvf /tmp/apache-ivy.tar.gz -C /tmp
+    # - name: Install Ivy
+    #   run: |
+    #     wget  -O /tmp/apache-ivy.tar.gz https://dlcdn.apache.org//ant/ivy/2.5.2/apache-ivy-2.5.2-bin-with-deps.tar.gz
+    #     tar -xvf /tmp/apache-ivy.tar.gz -C /tmp
     - name: Build with Ant
-      run: ant -noinput -lib /tmp/apache-ivy-2.5.2 -buildfile build.xml
+      run: ant -noinput -buildfile build.xml
