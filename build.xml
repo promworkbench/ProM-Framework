@@ -1,4 +1,4 @@
-<project name="ProM-Framework" default="Compile Sources" basedir=".">
+<project name="ProM-Framework" default="Compile Sources" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 	<!-- set global properties for this build -->
 	<property environment="env" />
 	<property name="src" location="src" />
