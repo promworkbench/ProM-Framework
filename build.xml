@@ -119,7 +119,7 @@
 		<delete dir="${dist}" />
 	</target>
 	
-	<target name="resolve" depend="ivy">
+	<target name="resolve" depends="ivy">
 		<ivy-retrieve type="jar,bundle" sync="true" />
 		<ivy-retrieve pattern="lib/[artifact]-[revision].[ext]" conf="lib" type="jar,bundle" sync="true" />
 	</target>
