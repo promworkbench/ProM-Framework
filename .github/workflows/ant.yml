@@ -22,7 +22,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Build with Ant
-      run: ant -noinput -buildfile build.xml
+      run: ant -noinput -buildfile build.xml buildHudson
       env:
         bytecode_format: ${{ vars.BYTECODE_FORMAT }}
         major_minor: ${{ vars.MAJOR_MINOR }}
