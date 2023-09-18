@@ -7,7 +7,7 @@
 	<property name="lib" location="lib" />
 	<property name="dist" location="dist" />
 	<property name="release" location="latestrelease" />
-	<property name="version" value="${major_minor}.${env.BUILD_NUMBER}" />
+	<property name="version" value="${env.major_minor}.${env.BUILD_NUMBER}" />
 	<property name="project" value="ProM-Framework" />
 
 	<property name="author" value="H.M.W. Verbeek" />
@@ -70,7 +70,7 @@
 	<macrodef name="compile">
 		<sequential>
 			<!-- Compile the java code from ${src}-@{module} into ${build} -->
-			<javac srcdir="${src}" classpathref="classpath" destdir="${build}" nowarn="false" verbose="no" debug="true" debuglevel="lines,vars,source" deprecation="yes" source="${bytecode_format}" target="${bytecode_format}">
+			<javac srcdir="${src}" classpathref="classpath" destdir="${build}" nowarn="false" verbose="no" debug="true" debuglevel="lines,vars,source" deprecation="yes" source="${env.bytecode_format}" target="${env.bytecode_format}">
 				<!-- Check for unsafe operations -->
 				<compilerarg value="-Xlint:unchecked" />
 			</javac>
