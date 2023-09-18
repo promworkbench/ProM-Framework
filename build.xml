@@ -7,8 +7,8 @@
 	<property name="lib" location="lib" />
 	<property name="dist" location="dist" />
 	<property name="release" location="latestrelease" />
-	<property name="bytecode_format" value="${env.BYTECODE_FORMAT}" />	
-	<property name="major_minor" value="${env.MAJOR_MINOR}" />
+	<property name="bytecode_format" value="1.8" />	
+	<property name="major_minor" value="6.13" />
 	<property name="version" value="${major_minor}.${env.BUILD_NUMBER}" />
 	<property name="project" value="ProM-Framework" />
 
