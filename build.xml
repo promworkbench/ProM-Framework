@@ -7,7 +7,7 @@
 	<property name="lib" location="lib" />
 	<property name="dist" location="dist" />
 	<property name="release" location="latestrelease" />
-	<property name="version" value="${env.major_minor}.${GITHUB_RUN_NUMBER}" />
+	<property name="version" value="${env.major_minor}.${env.GITHUB_RUN_NUMBER}" />
 	<property name="project" value="ProM-Framework" />
 
 	<property name="author" value="H.M.W. Verbeek" />
