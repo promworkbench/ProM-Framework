@@ -26,7 +26,7 @@ jobs:
       env:
         bytecode_format: ${{ vars.BYTECODE_FORMAT }}
         major_minor: ${{ vars.MAJOR_MINOR }}
-        BUILD_NUMBER: ${{ env.GITHUB_RUN_NUMBER }}
+        BUILD_NUMBER: ${{ GITHUB_RUN_NUMBER }}
     - name: Upload build result
       uses: actions/upload-artifact@v3
       with:
