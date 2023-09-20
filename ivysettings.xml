@@ -2,17 +2,22 @@
     <settings defaultResolver="default" />   
     <resolvers>
         <url name="prom" checkmodified="true">
-            <ivy pattern="https://svn.win.tue.nl/repos/[organisation]/Releases/Packages/[module]/[revision]/ivy.xml" />
-            <artifact pattern="https://svn.win.tue.nl/repos/[organisation]/Releases/Packages/[module]/[revision]/[artifact]-[revision].[ext]" />
+            <ivy pattern="https://github.com/promworkbench/[module]/raw/main/latestrelease/ivy.xml" />
+            <artifact pattern="https://github.com/promworkbench/[module]/raw/main/latestrelease/[artifact].[ext]" />
+        </url>
+         <url name="prom-svn" checkmodified="true">
+            <ivy pattern="https://github.com/promworkbench/Releases/raw/main/Packages/[module]/[revision]/ivy.xml" />
+            <artifact pattern="https://github.com/promworkbench/Releases/raw/main/Packages/[module]/[revision]/[artifact].[ext]" />
         </url>
         <url name="prom-libs">
-            <ivy pattern="https://svn.win.tue.nl/repos/prom/Libraries/[module]/[revision]/ivy.xml" />
-            <artifact pattern="https://svn.win.tue.nl/repos/prom/Libraries/[module]/[revision]/[artifact]-[revision].[ext]" />
-            <artifact pattern="https://svn.win.tue.nl/repos/prom/Libraries/[module]/[revision]/[artifact]_[revision].[ext]" />
+            <ivy pattern="https://github.com/promworkbench/Releases/raw/main/Libraries/[module]/[revision]/ivy.xml" />
+            <artifact pattern="https://github.com/promworkbench/Releases/raw/main/Libraries/[module]/[revision]/[artifact]-[revision].[ext]" />
+            <artifact pattern="https://github.com/promworkbench/Releases/raw/main/Libraries/[module]/[revision]/[artifact]_[revision].[ext]" />
         </url>
         <ibiblio name="maven2" m2compatible="true" root="https://repo1.maven.org/maven2/"/>
         <chain name="default" returnFirst="true">  
             <resolver ref="prom" />  
+            <resolver ref="prom-svn" />  
             <resolver ref="prom-libs" />  
             <resolver ref="maven2" />  
         </chain>  
