@@ -1,7 +1,7 @@
 <ivy-module version="2.0">
     <info organisation="prom" module="ProM-Framework" revision="latest">
     	<description>
-    		Version 6.13.33
+    		Version 6.13.35
     	</description>
     </info>
     <configurations>
