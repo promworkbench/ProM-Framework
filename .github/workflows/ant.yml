@@ -5,7 +5,7 @@ name: Java CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "ivy-release-test" ]
   pull_request:
     branches: [ "main" ]
 
@@ -31,3 +31,14 @@ jobs:
       with:
         name: release
         path: latestrelease/
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add latestrelease/
+        git commit -m "Add changes"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
