@@ -7,7 +7,7 @@
         </url>
          <url name="prom-svn" checkmodified="true">
             <ivy pattern="https://github.com/promworkbench/Releases/raw/main/Packages/[module]/[revision]/ivy.xml" />
-            <artifact pattern="https://github.com/promworkbench/Releases/raw/main/Packages/[module]/[revision]/[artifact].[ext]" />
+            <artifact pattern="https://github.com/promworkbench/Releases/raw/main/Packages/[module]/[revision]/[artifact]-[revision].[ext]" />
         </url>
         <url name="prom-libs">
             <ivy pattern="https://github.com/promworkbench/Releases/raw/main/Libraries/[module]/[revision]/ivy.xml" />
