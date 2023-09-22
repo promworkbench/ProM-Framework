@@ -187,6 +187,7 @@
 				</echo>
 			<copy file="ivy.xml" tofile="${release}/ivy.xml" overwrite="true" />
 			<replace file="${release}/ivy.xml" token="VERSION" value="${version}" />
+			<copy file="ProM.ini" tofile="${release}/ProM.ini" overwrite="true" />
 		</sequential>
 	</target>
 	
